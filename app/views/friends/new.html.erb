@@ -1,16 +1,20 @@
-<h1>Add new friend</h1>
-<form action="/friends" accept-charset="UTF-8" method="post">
+<div class="new-friend">
+  <h1>Add new friend</h1>
+
+    <form class="myform" action="/friends" accept-charset="UTF-8" method="post">
+      <div class="form-element">
   <input type="hidden" name="authenticity_token" value="...">
-  <div>
-    <label for="friend_name">Email</label><br>
+    <label for="friend_name">Email</label>
         <input type="text" name="friend[email]" id="friend_name">
-  </div>
-<div>
-  <% if @err %>
+        <% if @err %>
+
+      <div>
   <%= @err[:msg] %>
-  <% end %>
 </div>
-  <div>
-    <input type="submit" name="commit" value="Add Friend" >
+        <% end %>
+
+      </div>
+      <div class="submit">
+        <input type="submit" name="commit" value="Add Friend" >
+      </div></form>
   </div>
-</form>
