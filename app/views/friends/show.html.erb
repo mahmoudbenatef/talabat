@@ -1,0 +1,8 @@
+<h1>Your friend's data </h1>
+<p><%= @friend.friend.full_name %></p>
+
+<p><%= @friend.friend.email %></p>
+
+<li><%= link_to "Destroy", friend_path(@friend),
+                method: :delete,
+                data: { confirm: "Are you sure?" } %></li>
