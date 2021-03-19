@@ -13,13 +13,10 @@
   <body>
 
   <div class="body">
-  <% if user_signed_in?  %><li>
-    <h1>hello there </h1>
+  <% if user_signed_in?  %>
     <%=  link_to_if user_signed_in?, "Logout", destroy_user_session_path,
                                                method: :delete %>
-
-
-  </li> <%end %>
+    <%end %>
     <%= yield %>
   </div>
   </body>
