@@ -12,6 +12,15 @@
 
 ActiveRecord::Schema.define(version: 2021_03_20_235015) do
 
+  create_table "friends", charset: "utf8mb4", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "friend_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["friend_id"], name: "index_friends_on_friend_id"
+    t.index ["user_id"], name: "index_friends_on_user_id"
+  end
+
   create_table "groups", charset: "utf8mb4", force: :cascade do |t|
     t.text "name"
     t.datetime "created_at", precision: 6, null: false
@@ -51,4 +60,6 @@ ActiveRecord::Schema.define(version: 2021_03_20_235015) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
+  add_foreign_key "friends", "friends"
+  add_foreign_key "friends", "users"
 end
