@@ -1,0 +1,150 @@
+// Place all the styles related to the Friends controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+.title-container{
+display: flex;
+justify-content: center;
+}
+.title{
+  align-self: center;
+  justify-content: center;
+  //text-align: center;
+    padding: 3vh;
+  background-color: lighten(#c0e3e3,10%);
+  border-radius: 30px;
+  display: flex;
+  flex-basis: 60%;
+}
+
+h1{
+  text-align: center;
+}
+//p{
+//  font-size: 12vh;
+//}
+
+ul{
+  font-size: 10vh;
+  list-style: none;
+}
+a{
+  color:black ;
+  text-decoration: none;
+}
+.container{
+  display: flex;
+  justify-content: center;
+  //align-items: center;
+  text-align: center;
+}
+.friends-list{
+margin-top: 10px;
+  flex-basis: 60%;
+  background-color: lighten(#c0e3e3,8%);
+  //border-radius: 30px;
+ul{
+  padding-inline-start:0px;
+
+}
+  & li{
+    width: 100%;
+    &:hover{
+      background-color: lighten(#c0e3e3,13%);
+    }
+  }
+}
+.show-container{
+  background-color: lighten(#c0e3e3,8%);
+  padding: 2vh;
+  display: flex;
+  flex-direction: column;
+  height: 40vh;
+  justify-content: space-between;
+}
+.destroy-link{
+  //flex-basis: 30%;
+
+  display: flex;
+  justify-content: center;
+  & a {
+    background-color: #999999;
+    padding: 2vh;
+    border-radius: 15px;
+    &:hover{
+    animation-name: linkHover;
+    animation-duration:0.5s;
+    animation-fill-mode : forwards;
+    animation-timing-function: ease-in-out;
+    }
+  }
+}
+.email{
+  display: flex;
+  justify-content: space-evenly;
+  flex-basis: 12%;
+  &:hover{
+    background-color: lighten(#c0e3e3,13%);
+
+  }
+}
+.friend-name{
+  font-size: 10vh;
+  justify-content: center;
+  //flex-basis: 30%;
+  display: flex;
+}
+@keyframes linkHover {
+  // you give it style at specified time of the running of the animation  we can change opacity to be like fade out
+  0% {
+
+  }
+  100% { background-color:#666666;
+    transform:scale(1.3);
+  }
+}
+.new-friend{
+  align-items: center;
+  background-color: lighten(#c0e3e3,8%);
+  padding: 2vh;
+  display: flex;
+  flex-direction: column;
+  height: 50vh;
+  justify-content: normal;
+
+}
+.myform{
+font-size: 18vh;
+  align-self: center;
+  flex-basis: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap:wrap;
+  justify-content: space-around;
+}
+//input{
+//  display: flex;
+//  align-self: center;
+//}
+.form-element{
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.submit{
+  //flex-basis: 20%;
+  & input{
+  display: flex;
+  justify-content: center;
+  background-color: #999999;
+    font-size: 5vh;
+    border-radius: 20px;
+
+  }
+}
+
+input{
+  font-size: 5vh;
+  padding-left: 2vh;
+}

@@ -2,7 +2,7 @@ $black: #2E2F30;
 $dark_gredient: #bbb3b3;
 
 .container-col{
-  background-image: linear-gradient(to bottom right,$dark_gredient , lighten($dark_gredient,10%));
+  //background-image: linear-gradient(to bottom right,$dark_gredient , lighten($dark_gredient,10%));
   display: flex;
   flex-direction: column;
   justify-content: center;

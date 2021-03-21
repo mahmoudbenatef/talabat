@@ -11,6 +11,16 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 2021_03_18_152411) do
+ActiveRecord::Schema.define(version: 2021_03_18_023940) do
+
+  create_table "friends", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "friend_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["friend_id"], name: "index_friends_on_friend_id"
+    t.index ["user_id"], name: "index_friends_on_user_id"
+  end
 
   create_table "groups", charset: "utf8mb4", force: :cascade do |t|
     t.text "name"
@@ -45,4 +55,6 @@ ActiveRecord::Schema.define(version: 2021_03_18_152411) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
+  add_foreign_key "friends", "friends"
+  add_foreign_key "friends", "users"
 end

@@ -13,14 +13,29 @@
   <body>
 
   <div class="body">
-  <% if user_signed_in?  %><li>
-    <h1>hello there </h1>
-    <%=  link_to_if user_signed_in?, "Logout", destroy_user_session_path,
-                                               method: :delete %>
+    <% if user_signed_in?  %>
+  <div class="header">
+  <div class="header-right">
+    <%= link_to "Home", new_friend_path %>
+    <%= link_to "Friends", friends_path %>
+    <%= link_to "Groups", new_friend_path %>
+    <%= link_to "Orders", new_friend_path %>
 
+  </div>
+      <div class="header-left">
+        <%= link_to "notification", new_friend_path %>
+        <%= link_to "image", new_friend_path %>
+        <%= link_to "Name", new_friend_path %>
+        <%=  link_to_if user_signed_in?, "Logout", destroy_user_session_path,
+                        method: :delete %>
 
-  </li> <%end %>
+      </div>
+    </div>
+
+    <%end %>
+    <div class="content">
     <%= yield %>
+    </div>
   </div>
   </body>
 </html>
