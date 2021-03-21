@@ -18,6 +18,15 @@ class GroupsController < ApplicationController
     end
   end
 
+  def show
+    @group = Group.find(params[:id])
+    respond_to do |format|
+      format.js
+      format.html { redirect_to groups_url, notice: 'Group was successfully created.'  }
+      format.json { head :no_content }
+    end
+  end
+
   def destroy
     @group = Group.find(params[:id])
     @group.destroy

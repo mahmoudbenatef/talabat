@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users
+  resources :groups do
+    resources :member
+  end
   resources :groups
   root "friends#index"
   resources :friends
