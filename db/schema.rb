@@ -10,10 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_18_152411) do
+ActiveRecord::Schema.define(version: 2021_03_20_235015) do
 
   create_table "groups", charset: "utf8mb4", force: :cascade do |t|
     t.text "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "members", charset: "utf8mb4", force: :cascade do |t|
+    t.string "member_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

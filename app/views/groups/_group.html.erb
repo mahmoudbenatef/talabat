@@ -1,1 +1,12 @@
-<li><%= group.name %> <span>|</span> <%= link_to "Delete", group, method: :delete, data: { confirm: "Are you sure?", remote: true },  class: "delete" %></li>
+
+<% if locals[:isHide] %>
+     <%= group.name %> 
+     <%= group.id %> 
+    <h1> 2l mont 2lqmd</h1>
+<% else%>
+<li>
+<%= group.name %> 
+<span>|</span> <%= link_to "Add members", group, remote: true  %>
+<span>|</span> <%= link_to "Delete", group, method: :delete, data: { confirm: "Are you sure?", remote: true },  class: "delete" %>
+</li>
+<% end %>
