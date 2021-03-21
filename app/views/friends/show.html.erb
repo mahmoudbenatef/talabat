@@ -1,0 +1,14 @@
+<div class="show-container">
+  <div class="friend-name">
+<h1><%= @friend.friend.full_name %></h1>
+  </div>
+<div class="email">
+<label for="">Email:</label>
+<span><%= @friend.friend.email %></span>
+</div>
+<div class="destroy-link">
+<%= link_to "Destroy", friend_path(@friend),
+                method: :delete,
+                data: { confirm: "Are you sure?" } %>
+</div>
+</div>
