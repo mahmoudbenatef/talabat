@@ -1,6 +1,10 @@
 
 <%= render "form" %>
 
-<ul id="users">  
-    <%= render @groups%>
+<ul id="groups">  
+    <%= render @groups, :locals => {:isHide => false}%>
 </ul>
+
+<div id="members">
+
+</div>

@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
+  resources :orders
   devise_for :users
+  resources :groups do
+    resources :member
+  end
   resources :groups
   root "friends#index"
   resources :friends
