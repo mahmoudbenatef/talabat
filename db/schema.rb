@@ -10,11 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_22_193752) do
 
-  create_table "friends", charset: "utf8mb4", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "friend_id", null: false
+ActiveRecord::Schema.define(version: 2021_03_20_235015) do
+
+
+  create_table "friends", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "friend_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["friend_id"], name: "index_friends_on_friend_id"
@@ -27,7 +29,7 @@ ActiveRecord::Schema.define(version: 2021_03_22_193752) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "members", charset: "utf8mb4", force: :cascade do |t|
+  create_table "members", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "member_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -75,6 +77,6 @@ ActiveRecord::Schema.define(version: 2021_03_22_193752) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
-  add_foreign_key "friends", "friends"
   add_foreign_key "friends", "users"
+  add_foreign_key "friends", "users", column: "friend_id"
 end
