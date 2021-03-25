@@ -55,6 +55,14 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-gem 'devise'
-# third party facebook auth using omniauth v 1.0.0
-gem 'omniauth-facebook', '~> 1.0.0'
+gem 'devise', github: 'heartcombo/devise', branch: 'ca-omniauth-2'
+gem 'omniauth-rails_csrf_protection'
+# third party facebook auth using omniauth-facebook v 1.0.0
+gem 'omniauth-facebook'
+# gem 'omniauth-facebook', '~> 1.0.0'
+#third party facebook auth using omniauth-google-oauth2
+ gem 'omniauth-google-oauth2'
+
+ gem 'pry'
+
+ gem 'dotenv-rails'

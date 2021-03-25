@@ -25,8 +25,14 @@ Devise.setup do |config|
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
   config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
-  # config.omniauth :facebook, "487422058957177", "5f4a3d2b1bbdfa5d000ff794a979048d"
-  config.omniauth :facebook, "895883684585315", "dcf1b6d9290cd49e7bf021b6e4c4afca"
+  # config.omniauth :facebook, "188467659710735", "caf12a84c32b01ce437ba8857519da7a"
+  # config.omniauth :facebook, ENV['FACEBOOK_CLIENT_ID'],ENV['FACEBOOK_CLIENT_SECRT'], :scope => "email,public_profile", token_params: { parse: :json }
+  config.omniauth :google_oauth2, ENV["GOOGLE_CLIENT_ID"], ENV["GOOGLE_CLIENT_SECRT"], access_type: "online"
+  config.omniauth :facebook, ENV['FACEBOOK_CLIENT_ID'],ENV['FACEBOOK_CLIENT_SECRT'],scope: 'email', token_params: { parse: :json }
+  # :callback_url => 'http://localhost:3000/auth/facebook/callback'
+  # config.omniauth :facebook, "2194564214010483", "2dd3327e687045401dc3a389ec45d2b5", :scope => "email", token_params: { parse: :json }, access_type: "online"
+  # provider :google_oauth2, ENV['talabat-308518'], ENV['356553542208'] || :scope => "email", token_params: { parse: :json },
+  #scope: 'email,user_birthday,read_stream', display: 'popup'   Invalid Scopes: offline_access.
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
 
