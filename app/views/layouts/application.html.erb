@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <title>Talabat say hello to dev branch</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
@@ -8,52 +9,86 @@
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
 
-  <body>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/fontawesome.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous" />
+</head>
 
-  <div class="body">
-    <% if user_signed_in?  %>
-  <div class="header">
-  <div class="header-right">
-    <%= link_to "Home", new_friend_path %>
-    <%= link_to "Friends", friends_path %>
-    <%= link_to "Groups", new_friend_path %>
-    <%= link_to "Orders", orders_path %>
+<body>
 
-  </div>
-      <div class="header-left">
-        <%= link_to "notification", new_friend_path %>
-        <%= link_to "image", new_friend_path %>
-        <%= link_to "Name", new_friend_path %>
-        <%=  link_to_if user_signed_in?, "Logout", destroy_user_session_path,
-                        method: :delete %>
+    <div class="body">
+        <% if user_signed_in?  %>
 
-      </div>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="/">
+                <img src="https://webstockreview.net/images/icon-png-images-6.png" height="50" />
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <%= link_to "Friends", friends_path, class: "nav-link" %>
+                    </li>
+                    <li class="nav-item">
+                        <%= link_to "Groups", groups_path, class: "nav-link" %>
+                    </li>
+
+                    <li class="nav-item">
+                        <%= link_to "Orders", orders_path , class: "nav-link" %>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <%= link_to "notification", orders_path , class: "nav-link" %>
+                    </li>
+
+                    <li class="nav-item">
+
+                        <%= link_to "image", new_friend_path, class: "nav-link" %>
+
+                    </li>
+                    <li class="nav-item">
+                        <%= link_to "Name", new_friend_path, class: "nav-link" %>
+
+                    </li>
+                    <li class="nav-item">
+                        <%=  link_to_if user_signed_in?, "Logout", destroy_user_session_path,
+                        method: :delete, class: "nav-link" %>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <%end %>
+        <div class="content">
+            <%= yield %>
+        </div>
     </div>
+    <script>
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId: '895883684585315',
+                xfbml: true,
+                version: 'v10.0'
+            });
+            FB.AppEvents.logPageView();
+        };
 
-    <%end %>
-    <div class="content">
-    <%= yield %>
-    </div>
-  </div>
-  <script>
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '895883684585315',
-      xfbml      : true,
-      version    : 'v10.0'
-    });
-    FB.AppEvents.logPageView();
-  };
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {
+                return;
+            }
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+</body>
 
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "https://connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-</script>
-  </body>
 </html>
