@@ -1,1 +1,20 @@
-this is form file html
+<div class="">
+  <h1>Add new Member</h1>
+<!--  data-remote="true"-->
+  <form action="/groups/<%= @group.id %>/members" accept-charset="UTF-8" method="post" data-remote="true">
+    <div class="form-element">
+      <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+<!--      <input type="hidden" name="member[group]" value="<%# %>">-->
+      <label for="friend_name">Email</label>
+      <input type="email" name="email" id="">
+      <% if @err %>
+        <div>
+          <%= @err[:msg] %>
+        </div>
+      <% end %>
+    </div>
+    <div class="submit">
+      <input type="submit" name="commit" value="Add Member" >
+    </div>
+  </form>
+</div>

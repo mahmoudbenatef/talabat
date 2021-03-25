@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_20_235015) do
+ActiveRecord::Schema.define(version: 2021_03_22_193752) do
 
 
   create_table "friends", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -22,19 +22,22 @@ ActiveRecord::Schema.define(version: 2021_03_20_235015) do
     t.index ["user_id"], name: "index_friends_on_user_id"
   end
 
-  create_table "groups", charset: "utf8mb4", force: :cascade do |t|
+  create_table "groups", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.text "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "members", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "member_id"
+    t.bigint "group_id"
+    t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["group_id"], name: "index_members_on_group_id"
+    t.index ["user_id"], name: "index_members_on_user_id"
   end
 
-  create_table "orders", charset: "utf8mb4", force: :cascade do |t|
+  create_table "orders", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "orderType"
     t.string "orderFrom"
     t.string "menuImage"
@@ -44,12 +47,12 @@ ActiveRecord::Schema.define(version: 2021_03_20_235015) do
     t.index ["owner_id"], name: "index_orders_on_owner_id"
   end
 
-  create_table "orders_users", id: false, charset: "utf8mb4", force: :cascade do |t|
+  create_table "orders_users", id: false, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "order_id", null: false
   end
 
-  create_table "users", charset: "utf8mb4", force: :cascade do |t|
+  create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "full_name", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -80,4 +83,6 @@ ActiveRecord::Schema.define(version: 2021_03_20_235015) do
 
   add_foreign_key "friends", "users"
   add_foreign_key "friends", "users", column: "friend_id"
+  add_foreign_key "members", "groups"
+  add_foreign_key "members", "users"
 end

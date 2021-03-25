@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => { :omniauth_callbacks => "callbacks" }
   resources :orders
   resources :groups do
-    resources :member
+    resources :members
   end
   root "friends#index"
   resources :friends
