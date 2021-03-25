@@ -23,13 +23,17 @@
 
   <div class="field">
     <%= form.label :menuImage %>
-    <%= form.text_field :menuImage %>
+    <%= form.file_field :menuImage %>
   </div>
    <div class="field">
-    <%= form.label :owner_id %>
-    <%= form.number_field :owner_id ,id: :order_owner_id,value:current_user.id ,type: :hidden%>
-
+    <%= form.label :friendsToAdd %>
+    <%= form.text_field :friendsToAdd %>
   </div>
+   <div class="field">
+    <%= form.label :user_id %>
+    <%= form.number_field :user_id ,id: :order_user_id,value:current_user.id ,type: :hidden%>
+  </div>
+
 
   <div class="actions">
     <%= form.submit %>
