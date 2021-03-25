@@ -1,0 +1,7 @@
+<%
+  @member = Member.find(id)
+%>
+<li>
+  <span> <%= @member.user.full_name %></span>
+  <%= link_to "Destroy", group_member_path(id:@member), method: :delete, data: { confirm: "Are you sure?" },remote:true , class:"delete"%>
+</li>

@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   resources :orders
   devise_for :users
   resources :groups do
-    resources :member
+    resources :members
   end
   resources :groups
   root "friends#index"

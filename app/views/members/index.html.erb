@@ -1,2 +1,14 @@
-<h1>Members#index</h1>
-<p>Find me in app/views/members/index.html.erb</p>
+<ul id="friends">
+  <%= render "form" , group: @member.group.id%>
+
+  <ul id="errors" class="errors">
+
+  </ul>
+  <h1>All Members</h1>
+  <ul id="members">
+    <% @members.each do |member| %>
+    <span><%=member.user.full_name %></span>
+    <% end %>
+
+  </ul>
+</ul>

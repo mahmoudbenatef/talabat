@@ -1,12 +1,20 @@
 
 <% if locals[:isHide] %>
-     <%= group.name %> 
-     <%= group.id %> 
-    <h1> 2l mont 2lqmd</h1>
+
+     <%= group.name %>
+     <%= group.id %>
+
 <% else%>
+
 <li>
-<%= group.name %> 
-<span>|</span> <%= link_to "Add members", group, remote: true  %>
+  <%= group.name %>
+
+<!--    <span>|</span> <%#= link_to "Add members", group_member_index_path(:group => { :group_id => group.id }) %>-->
+    <span>|</span> <%= link_to "view members", group_members_path(group.id) , remote: true %>
+
+<!--  <span>|</span> <%#= link_to "Add members", group_member_index_path(:group_id => group.id), remote: true  %>-->
 <span>|</span> <%= link_to "Delete", group, method: :delete, data: { confirm: "Are you sure?", remote: true },  class: "delete" %>
 </li>
+
+
 <% end %>
