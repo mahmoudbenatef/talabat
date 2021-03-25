@@ -1,8 +1,6 @@
-alert("am I here ?")
-<%# if @err %>
-
-//$("#errors").empty().append("<%= j render 'error', err: @err %>");
-<%#else %>
-//$("#errors").empty();
-//$("#friends").append("<%= j render @member %>");
-<%#end %>
+<% if @err %>
+$("#errors").empty().append("<%= j render 'error', err: @err %>");
+<%else %>
+$("#errors").empty();
+$("#members").append("<%= j render "member", id: @member.id %>");
+<%end %>

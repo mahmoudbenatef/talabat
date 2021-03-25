@@ -39,11 +39,13 @@ class MembersController < ApplicationController
       respond_to do |format|
         if @member.save
           format.js
-          format.html { redirect_to groups_path, notice: 'member was successfully added.' }
+          format.html { redirect_to group_members_url, notice: 'member was successfully added.' }
           format.json { render json: @user , status: :created, location: @member }
         else
-
-        end
+          format.html { redirect_to groups_path, notice: 'friend was successfully created.' }
+          format.js
+          format.json { render json: @err, status: :created, location: @friend }    end
+        @end
       end
     else
       respond_to do |format|
