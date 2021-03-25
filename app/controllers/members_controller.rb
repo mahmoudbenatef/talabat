@@ -31,29 +31,31 @@ class MembersController < ApplicationController
           @memberDict  =  { :user =>@my_friend_user , :group => @group}
           @member= Member.new(@memberDict)
 
-          if @err == nil
-            respond_to do |format|
-              if @member.save
-                format.js
-                format.html { redirect_to @member, notice: 'member was successfully added.' }
-                format.json { render json: @user , status: :created, location: @member }
-              else
-
-              end
-            end
-          else
-            respond_to do |format|
-              format.html { redirect_to groups_path, notice: 'friend was successfully created.' }
-              format.js
-              format.json { render json: @err, status: :created, location: @friend }    end
-            @end
-
-          end
         end
       end
 
     end
+    if @err == nil
+      respond_to do |format|
+        if @member.save
+          format.js
+          format.html { redirect_to groups_path, notice: 'member was successfully added.' }
+          format.json { render json: @user , status: :created, location: @member }
+        else
 
+        end
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to groups_path, notice: 'friend was successfully created.' }
+        format.js
+        format.json { render json: @err, status: :created, location: @friend }    end
+      @end
+
+
+
+
+    end
 
   end
 
