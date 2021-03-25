@@ -17,8 +17,14 @@ class MembersController < ApplicationController
     @err = nil
     @my_friend_user = User.find_by(email:params[:email])
     @user = User.find(current_user.id)
+    # abort 
+    # abort current_user.email.inspect
+    
     if  @my_friend_user == nil
       @err={:msg => "there is no user with this email"}
+    elsif
+      current_user.email ==  @my_friend_user.email
+      @err={:msg => "This member is already the group admin"}
     else
       @existed_friend  = Friend.where(user_id: @user,friend_id: @my_friend_user)
       if @existed_friend == nil

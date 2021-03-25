@@ -1,8 +1,12 @@
 
 <%= render "form" %>
 
+<div id="group_errors">
+
+</div>
+
 <ul id="groups">  
-    <%= render @groups, :locals => {:isHide => false}%>
+    <%= render @groups %>
 </ul>
 
 <div id="members">
