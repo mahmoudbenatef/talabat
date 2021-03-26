@@ -1,1 +1,5 @@
-$("#groups").append("<%= j render @group, locals: {isHide: false}   %>");
+<% if @err %>
+    $("#group_errors").empty().append("<%= j render 'errors'  %>");
+<% else %>
+    $("#groups").append("<%= j render @group %>");
+<% end %>
