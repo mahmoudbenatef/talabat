@@ -1,0 +1,6 @@
+<% if @err %>
+$("#errors").empty().append("<%= j render 'error', err: @err %>");
+<%else %>
+$("#errors").empty();
+$("#friends").append("<%= j render @friend %>");
+<%end %>
