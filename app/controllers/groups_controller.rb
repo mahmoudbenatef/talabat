@@ -5,21 +5,28 @@ class GroupsController < ApplicationController
   end
 
   def create
-    @group = Group.find_by(name: params[:group][:name],user_id: current_user)
-    if @group == nil
-      @group = Group.new(group_params)
-      respond_to do |format|
-      if @group.save
-        format.js
-      else
-        format.html { render action: "new" }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
-    end
+    if params[:group][:name] == ""
+      @err={:msg => "group name is required"}
+        respond_to do |format|
+          format.js
+        end
     else
-      @err={:msg => "group name already exists"}
-      respond_to do |format|
-        format.js
+      @group = Group.find_by(name: params[:group][:name],user_id: current_user)
+      if @group == nil
+        @group = Group.new(group_params)
+        respond_to do |format|
+        if @group.save
+          format.js
+        else
+          format.html { render action: "new" }
+          format.json { render json: @user.errors, status: :unprocessable_entity }
+        end
+      end
+      else
+        @err={:msg => "group name already exists"}
+        respond_to do |format|
+          format.js
+        end
       end
     end
   end
