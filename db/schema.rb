@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_22_193752) do
+ActiveRecord::Schema.define(version: 2021_03_25_195531) do
 
 
   create_table "friends", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -41,15 +41,20 @@ ActiveRecord::Schema.define(version: 2021_03_22_193752) do
     t.string "orderType"
     t.string "orderFrom"
     t.string "menuImage"
+    t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "owner_id"
-    t.index ["owner_id"], name: "index_orders_on_owner_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
-  create_table "orders_users", id: false, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "order_id", null: false
+  create_table "user_order_joins", charset: "utf8mb4", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "order_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["order_id"], name: "index_user_order_joins_on_order_id"
+    t.index ["user_id"], name: "index_user_order_joins_on_user_id"
+
   end
 
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -82,6 +87,9 @@ ActiveRecord::Schema.define(version: 2021_03_22_193752) do
   end
 
   add_foreign_key "friends", "users"
+  add_foreign_key "orders", "users"
+  add_foreign_key "user_order_joins", "orders"
+  add_foreign_key "user_order_joins", "users"
   add_foreign_key "friends", "users", column: "friend_id"
   add_foreign_key "members", "groups"
   add_foreign_key "members", "users"
