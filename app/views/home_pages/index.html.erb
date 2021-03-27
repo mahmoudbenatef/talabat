@@ -1,0 +1,21 @@
+<h1>Latest orders</h1>
+<div class="userActivities">
+
+  <% @user_orders.each do |order| %>
+    <li>
+      <%= order.orderType %>
+      <%= order.created_at %>
+    </li>
+  <% end %>
+</div>
+<h1>Friends activities</h1>
+<div class="friendsActivities">
+    <% @friends.each do |friend_user| %>
+  <% friend_user.friend.ownedOrders.order('created_at desc').each do |order| %>
+      <%= friend_user.friend.full_name %>
+    <%= "created order for "+ order.orderType +  ", from" + order.orderFrom %>
+    <br>
+<%end %>
+  <% end %>
+
+</div>
