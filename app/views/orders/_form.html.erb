@@ -1,4 +1,4 @@
-<%= form_with(model: order) do |form| %>
+<%= form_with(model: order)  do |form| %>
   <% if order.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(order.errors.count, "error") %> prohibited this order from being saved:</h2>
@@ -25,9 +25,13 @@
     <%= form.label :menuImage %>
     <%= form.file_field :menuImage %>
   </div>
+  <ul id=<%= "orderFriendsErrors"+current_user.id.to_s %> > </ul>
+    <ul id=<%= "orderFriends"+current_user.id.to_s %> >
+
+  </ul>
    <div class="field">
     <%= form.label :friendsToAdd %>
-    <%= form.text_field :friendsToAdd %>
+    <%= form.text_field :friendsToAdd, id:"friendsToAdd"+current_user.id.to_s %>
   </div>
    <div class="field">
     <%= form.label :user_id %>
@@ -38,4 +42,12 @@
   <div class="actions">
     <%= form.submit %>
   </div>
+
+
 <% end %>
+<div class="field">
+  <form class="text-center" action="/addfriend" accept-charset="UTF-8" method="post" data-remote="true">
+    <input name="email">
+    <input class="btn btn-primary m-3" type="submit" name="commit" value="Add Friend">
+  </form>
+</div>

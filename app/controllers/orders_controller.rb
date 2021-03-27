@@ -113,4 +113,6 @@ end
     def order_params
       params.require(:order).permit(:orderType, :orderFrom, :menuImage,:user_id,:friendsToAdd)
     end
+
+
 end
