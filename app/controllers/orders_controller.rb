@@ -5,8 +5,8 @@ class OrdersController < ApplicationController
   def index
     @orders = Order.all
     @userOrder=UserOrderJoin.all
-    @users=@orders[0].users
-    @users.inspect
+    # @users=@orders[0].users
+    # @users.inspect
 
   end
 
