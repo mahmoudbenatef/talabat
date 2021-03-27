@@ -1,0 +1,24 @@
+<div class="container">
+<%# data-remote="true" @order_id  %>
+    <form class="text-center form-inline"  action="/orders/<%= @order_id  %>/orders_details" accept-charset="UTF-8" method="post">
+        <input type="hidden" name="authenticity_token" value="...">
+        <div class="input-group flex-nowrap mx-1">
+            <input type="text" class="form-control" placeholder="Item" name="item[name]" >
+        </div>
+        <div class="input-group flex-nowrap mx-1">
+            <input type="number" class="form-control" placeholder="Amount" name="item[amount]" >
+        </div>
+        <div class="input-group flex-nowrap mx-1">
+            <input type="number" class="form-control" placeholder="Price" name="item[price]" >
+        </div>
+        <div class="input-group flex-nowrap mx-1">
+            <input type="text" class="form-control" placeholder="Comment" name="item[comment]" >
+        </div>
+        <% if @err %>
+        <div>
+            <%= @err[:msg] %>
+        </div>
+        <% end %>
+          <input class="btn btn-primary m-3" type="submit" name="commit" value="Add">
+    </form>
+</div>

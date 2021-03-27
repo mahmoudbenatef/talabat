@@ -20,7 +20,7 @@ class OrderMembersController < ApplicationController
         ActionCable.server.broadcast("notification_channel", {header: "validate email", body: "you don't have this friend " , userId: current_user.id , email:params[:email]})
       else
         ActionCable.server.broadcast("notification_channel", {header: "validate email", body: "valid" , userId: current_user.id , email:params[:email] , friend: @existed_friend} )
-        end
+      end
 
 
     end

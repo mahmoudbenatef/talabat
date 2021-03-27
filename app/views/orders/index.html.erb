@@ -22,7 +22,7 @@
         <td><%= order.orderFrom %></td>
         <td><%= order.menuImage %></td>
          <td><%= order.user.email %></td>
-        <td><%= link_to 'Show', order %></td>
+        <td><%= link_to 'Show', order_orders_details_path(order) %></td>
         <td><%= link_to 'Edit', edit_order_path(order) %></td>
         <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <%end%>
