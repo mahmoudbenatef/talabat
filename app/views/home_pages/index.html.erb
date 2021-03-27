@@ -8,7 +8,7 @@
     </li>
   <% end %>
 </div>
-<h1>Friends activities</h1>
+<h1>Friends activities</h1>real_user
 <div class="friendsActivities">
     <% @friends.each do |friend_user| %>
   <% friend_user.friend.ownedOrders.order('created_at desc').each do |order| %>
