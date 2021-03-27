@@ -4,6 +4,10 @@ class OrdersController < ApplicationController
   # GET /orders or /orders.json
   def index
     @orders = Order.all
+    @userOrder=UserOrderJoin.all
+    # @users=@orders[0].users
+    # @users.inspect
+
   end
 
   # GET /orders/1 or /orders/1.json
@@ -37,18 +41,25 @@ class OrdersController < ApplicationController
     usersToAdd=order_params[:friendsToAdd].split(" ")
     
     usersToAdd.each do |user|
+      #if user.index[0]=="#"
+        #@usersOfGroup=Group.where(name: user.slice(1,user.length)).take.users
+        
+     # end
       if !user.match(/^[a-z]+[0-9\._a-z]+@[a-z]+\.com$/)
         notValidEmails.push(user)
         abort @user.inspect
-      elsif @User.where(email: user).empty?
-        abort @user.inspect
-
-      end
       
+      elsif !User.where(email: user).any?
+        notValidEmails.push(user)
+        abort @user.inspect
+      elsif User.where(email: user).take.id ==current_user.id
+        abort @user.inspect
+        
+      end
       @currentFriend=User.find_by(email:user)
       @dict  =  { :user =>@currentFriend , :order => @order}
-      @test=UserOrderJoin.new(@dict)
-      @test.save
+      @userOrder=UserOrderJoin.new(@dict)
+      @userOrder.save
     end
   
 
@@ -59,7 +70,7 @@ end
 @order.menuImage=uploaded_io.original_filename
 
     respond_to do |format|
-      if @order.save
+      if @order.save 
         format.html { redirect_to @order, notice: "Order was successfully created." }
         format.json { render :show, status: :created, location: @order }
       else

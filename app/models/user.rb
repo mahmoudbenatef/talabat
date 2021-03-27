@@ -6,7 +6,10 @@ class User < ApplicationRecord
   has_many :ownedOrders, :class_name => "Order", :foreign_key => 'user_id'
   has_many :user_order_joins
   has_many :orders, through: :user_order_joins
-  has_many :members
+  has_many:orders
+  has_many:members;
+  has_many :user_order_joins
+
   has_many :groups, through: :members
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
