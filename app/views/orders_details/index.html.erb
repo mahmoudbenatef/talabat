@@ -20,5 +20,28 @@
                 </td>
             </tr>
         </thead>
+        <tbody>
+            <% @order.user_order_joins.each do |order_join|  %>
+                <% order_join.order_detail.each do |item|  %>
+                    <tr>
+                        <td> 
+                            <%= order_join.user.full_name %>
+                        </td>
+                        <td> 
+                            <%= item.item_name %>
+                        </td>
+                        <td> 
+                            <%= item.amount %>
+                        </td>
+                        <td> 
+                            <%= item.price %>
+                        </td>
+                        <td> 
+                            <%= item.comment %>
+                        </td>
+                    </tr>
+                <% end  %>
+            <% end  %>
+        </tbody>
     </table>
 </div>

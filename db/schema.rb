@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_27_200438) do
+ActiveRecord::Schema.define(version: 2021_03_27_200024) do
 
   create_table "friends", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "user_id"
@@ -43,12 +43,10 @@ ActiveRecord::Schema.define(version: 2021_03_27_200438) do
     t.integer "amount"
     t.float "price"
     t.text "comment"
+    t.bigint "user_order_join_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "user_id", null: false
-    t.bigint "user_order_joins_id", null: false
-    t.index ["user_id"], name: "index_order_details_on_user_id"
-    t.index ["user_order_joins_id"], name: "index_order_details_on_user_order_joins_id"
+    t.index ["user_order_join_id"], name: "index_order_details_on_user_order_join_id"
   end
 
   create_table "orders", charset: "utf8mb4", force: :cascade do |t|
@@ -104,8 +102,7 @@ ActiveRecord::Schema.define(version: 2021_03_27_200438) do
   add_foreign_key "groups", "users"
   add_foreign_key "members", "groups"
   add_foreign_key "members", "users"
-  add_foreign_key "order_details", "user_order_joins", column: "user_order_joins_id"
-  add_foreign_key "order_details", "users"
+  add_foreign_key "order_details", "user_order_joins"
   add_foreign_key "orders", "users"
   add_foreign_key "user_order_joins", "orders"
   add_foreign_key "user_order_joins", "users"

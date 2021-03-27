@@ -1,15 +1,17 @@
 <div class="container">
 <%# data-remote="true" @order_id  %>
     <form class="text-center form-inline"  action="/orders/<%= @order_id  %>/orders_details" accept-charset="UTF-8" method="post">
-        <input type="hidden" name="authenticity_token" value="...">
+        <%# <input type="hidden" name="authenticity_token" value="...">
+         %>
+         <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
         <div class="input-group flex-nowrap mx-1">
-            <input type="text" class="form-control" placeholder="Item" name="item[name]" >
+            <input type="text" class="form-control" required placeholder="Item" name="item[item_name]" >
         </div>
         <div class="input-group flex-nowrap mx-1">
-            <input type="number" class="form-control" placeholder="Amount" name="item[amount]" >
+            <input type="number" class="form-control" required min="1" placeholder="Amount" name="item[amount]" >
         </div>
         <div class="input-group flex-nowrap mx-1">
-            <input type="number" class="form-control" placeholder="Price" name="item[price]" >
+            <input type="number" class="form-control" required  min="1" placeholder="Price" name="item[price]" >
         </div>
         <div class="input-group flex-nowrap mx-1">
             <input type="text" class="form-control" placeholder="Comment" name="item[comment]" >
