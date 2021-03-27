@@ -4,10 +4,17 @@ class OrdersController < ApplicationController
   # GET /orders or /orders.json
   def index
     @orders = Order.all
+    @userOrder=UserOrderJoin.all
+    # @users=@orders[0].users
+    # @users.inspect
+
   end
 
   # GET /orders/1 or /orders/1.json
   def show
+    # extension=@order.menuImage.split('.')
+    # send_file Rails.root.join('public','uploads',@order.menuImage),
+    # :type=>"application/#{extension[1]}", :x_send_file=>true
   end
 
   # GET /orders/new
@@ -21,10 +28,49 @@ class OrdersController < ApplicationController
 
   # POST /orders or /orders.json
   def create
-    @order = Order.new(order_params)
+  
+    #@order = Order.new(order_params)
+    @order=Order.new
+    @order.orderType=order_params[:orderType]
+    @order.user_id=order_params[:user_id]
+    @order.orderFrom=order_params[:orderFrom]
+    @order.menuImage=order_params[:menuImage]
+    notValidEmails=[]
+    allUsers=User.all
+    @order.save
+    usersToAdd=order_params[:friendsToAdd].split(" ")
+    
+    usersToAdd.each do |user|
+      #if user.index[0]=="#"
+        #@usersOfGroup=Group.where(name: user.slice(1,user.length)).take.users
+        
+     # end
+      if !user.match(/^[a-z]+[0-9\._a-z]+@[a-z]+\.com$/)
+        notValidEmails.push(user)
+        abort @user.inspect
+      
+      elsif !User.where(email: user).any?
+        notValidEmails.push(user)
+        abort @user.inspect
+      elsif User.where(email: user).take.id ==current_user.id
+        abort @user.inspect
+        
+      end
+      @currentFriend=User.find_by(email:user)
+      @dict  =  { :user =>@currentFriend , :order => @order}
+      @userOrder=UserOrderJoin.new(@dict)
+      @userOrder.save
+    end
+  
+
+    uploaded_io = params[:order][:menuImage]
+File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
+  file.write(uploaded_io.read)
+end
+@order.menuImage=uploaded_io.original_filename
 
     respond_to do |format|
-      if @order.save
+      if @order.save 
         format.html { redirect_to @order, notice: "Order was successfully created." }
         format.json { render :show, status: :created, location: @order }
       else
@@ -36,6 +82,7 @@ class OrdersController < ApplicationController
 
   # PATCH/PUT /orders/1 or /orders/1.json
   def update
+    
     respond_to do |format|
       if @order.update(order_params)
         format.html { redirect_to @order, notice: "Order was successfully updated." }
@@ -64,6 +111,6 @@ class OrdersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def order_params
-      params.require(:order).permit(:orderType, :orderFrom, :menuImage,:owner_id)
+      params.require(:order).permit(:orderType, :orderFrom, :menuImage,:user_id,:friendsToAdd)
     end
 end

@@ -1,9 +1,9 @@
 <div class="title-container">
-  <div class="title">
-    <h1>
-      Friends
-    </h1>
-</div>
+    <div class="title">
+        <h1>
+            Friends
+        </h1>
+    </div>
 </div>
 
 <%= render "form" %>
@@ -12,12 +12,12 @@
 
 </ul>
 <div class="container">
-<div class="friends-list"><ul>
+    <div class="friends-list">
+        <ul>
 
-  <ul id="friends" style="list-style-type: none">
-    <%= render @friends , :locals => {:isHide => false}%>
-  </ul>
-</ul>
+            <ul id="friends" style="list-style-type: none">
+                <%= render @friends , :locals => {:isHide => false}%>
+            </ul>
+        </ul>
+    </div>
 </div>
-</div>
-

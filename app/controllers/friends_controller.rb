@@ -26,6 +26,7 @@ class FriendsController < ApplicationController
     if @err == nil
     respond_to do |format|
       if @friend.save
+        ActionCable.server.broadcast("notification_channel", { body: @user.full_name+ "add you in friend list" , userId: @my_friend.id})
         format.html { redirect_to @friend, notice: 'friend was successfully created.' }
         format.js
         format.json { render json: @err, status: :created, location: @friend }
