@@ -20,7 +20,7 @@ class MembersController < ApplicationController
     # abort 
     # abort current_user.email.inspect
     
-    if  @my_friend_user == nil
+    if  @my_friend_user == []
       @err={:msg => "there is no user with this email"}
     elsif
       current_user.email ==  @my_friend_user.email
