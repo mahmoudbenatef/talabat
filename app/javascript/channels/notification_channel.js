@@ -15,7 +15,6 @@ consumer.subscriptions.create("NotificationChannel", {
     console.log(data)
       let id = '#notification'+data["userId"];
     console.log(id);
-    console.log("howwww")
       if($(id).length) {
         console.log("done");
         $(id).append('<h1 class = "message">' + data.body + '</h1>')
