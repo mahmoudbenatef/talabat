@@ -3,7 +3,7 @@
         <div class="card-body">
             <h5 class="card-title"> <%= group.name %> </h5>
             <%= link_to "view members", group_members_path(group.id) , remote: true, class: "btn btn-primary" %>
-            <%= link_to "Delete", group, method: :delete, data: { confirm: "Are you sure?", remote: true },  class: "delete", class: "btn btn-danger"%>
+            <%= link_to "Delete", group, method: :delete, data: { confirm: "Are you sure?", remote: true },  class: "delete btn btn-danger"%>
         </div>
     </div>
 </li>
