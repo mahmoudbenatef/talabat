@@ -1,12 +1,21 @@
 
+
+
+
+
 <% if locals[:isHide] %>
      <%= group.name %> 
      <%= group.id %> 
     <h1> 2l mont 2lqmd</h1>
 <% else%>
 <li>
-<%= group.name %> 
-<span>|</span> <%= link_to "Add members", group, remote: true  %>
-<span>|</span> <%= link_to "Delete", group, method: :delete, data: { confirm: "Are you sure?", remote: true },  class: "delete" %>
+    <div class="card w-50">
+        <div class="card-body">
+            <h5 class="card-title"> <%= group.name %> </h5>
+            <%= link_to "Add members", group, remote: true, class: "btn btn-primary"  %>
+            <%= link_to "Delete", group, method: :delete, data: { confirm: "Are you sure?", remote: true },  class: "delete", class: "btn btn-danger"%>
+        </div>
+    </div>
 </li>
+<br/>
 <% end %>

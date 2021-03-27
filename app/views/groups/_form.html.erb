@@ -1,10 +1,21 @@
-<%= form_with(model: @group,id: "new-group", local: false) do |form| %>
-  <div>
-    <%= form.label :name %><br>
-    <%= form.text_field :name %>
-  </div>
+<div class="container">
 
-  <div>
-    <%= form.submit  %>
-  </div>
-<% end %>
+    <h1 class="mb-3">Add new Group:</h1>
+    <%= form_with(model: @group,id: "new-group", local: false, :html => {:class => "text-center"}) do |form| %>
+    <div class="input-group flex-nowrap">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="addon-wrapping">ex: my group</span>
+        </div>
+        <%= form.text_field :name, class: "form-control", placeholder: "Group name", id:"group_name" %>
+    </div>
+
+    <% if @err %>
+    <div>
+        <%= @err[:msg] %>
+    </div>
+    <% end %>
+    <div class="btn btn-primary m-3">
+        <%= form.submit %>
+    </div>
+    <% end %>
+</div>
