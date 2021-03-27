@@ -12,7 +12,6 @@
 
 ActiveRecord::Schema.define(version: 2021_03_25_231106) do
 
-
   create_table "friends", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "friend_id"
@@ -49,7 +48,6 @@ ActiveRecord::Schema.define(version: 2021_03_25_231106) do
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
-
   create_table "user_order_joins", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "order_id"
@@ -57,8 +55,6 @@ ActiveRecord::Schema.define(version: 2021_03_25_231106) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["order_id"], name: "index_user_order_joins_on_order_id"
     t.index ["user_id"], name: "index_user_order_joins_on_user_id"
-
-
   end
 
   create_table "users", charset: "utf8mb4", force: :cascade do |t|
@@ -91,11 +87,11 @@ ActiveRecord::Schema.define(version: 2021_03_25_231106) do
   end
 
   add_foreign_key "friends", "users"
-  add_foreign_key "orders", "users"
-  add_foreign_key "user_order_joins", "orders"
-  add_foreign_key "user_order_joins", "users"
   add_foreign_key "friends", "users", column: "friend_id"
   add_foreign_key "groups", "users"
   add_foreign_key "members", "groups"
   add_foreign_key "members", "users"
+  add_foreign_key "orders", "users"
+  add_foreign_key "user_order_joins", "orders"
+  add_foreign_key "user_order_joins", "users"
 end
