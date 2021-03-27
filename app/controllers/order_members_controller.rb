@@ -8,9 +8,8 @@ class OrderMembersController < ApplicationController
     # elsif !User.where(email: params[:email]).any?
     #   ActionCable.server.broadcast("notification_channel", {header: "validate email", body: "no user with this email" , userId: current_user.id})
 
-    elsif User.where(email: params[:email]).take.id ==current_user.id
+    elsif User.where(email: params[:email]).take!= nil && User.where(email: params[:email]).take.id ==current_user.id
       ActionCable.server.broadcast("notification_channel", {header: "validate email", body: "you can't add yourself" , userId: current_user.id})
-
 
     else
       @my_friend_user = User.find_by(email:params[:email])
