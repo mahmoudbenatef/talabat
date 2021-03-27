@@ -29,7 +29,7 @@ consumer.subscriptions.create("NotificationChannel", {
           let id = "#orderFriends" + data["userId"];
           if ($(id).length) {
             console.log("done");
-            $(id).append('<h1 class = "message">' + data.email + "</h1>");
+            $(id).append(`<div id=member${data.friend[0].friend_id}><h1 class = "message">${data.email}</h1><label  onclick="deleteItem(${"member"+data.friend[0].friend_id},${friendsToAdd.replace("#","")})">click me</label></div>`);
           }
         } else {
           errorMsg("you cant add the same member twice", data);
@@ -56,3 +56,4 @@ function errorMsg(msg, data) {
     $(id).append('<h1 class = "message">' + msg + "</h1>");
   }
 }
+

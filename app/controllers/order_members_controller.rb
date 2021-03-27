@@ -3,7 +3,6 @@ class OrderMembersController < ApplicationController
    if params[:email][0]=="#"
     @groupName=params[:email][1..params[:email].length()]
 
-    
     if Group.where(name: @groupName,user_id:current_user.id).any?
      
       @usersInGroup=Group.where(name: @groupName,user_id:current_user.id)[0].users
@@ -11,7 +10,7 @@ class OrderMembersController < ApplicationController
       @usersInGroup.each do |user|
         validateEmail(user[:email])
                
- 
+        
     end
 
     else
