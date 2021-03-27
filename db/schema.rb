@@ -10,9 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
+ActiveRecord::Schema.define(version: 2021_03_23_155526) do
+
+  create_table "friends", charset: "utf8mb4", force: :cascade do |t|
+=======
 ActiveRecord::Schema.define(version: 2021_03_25_231106) do
 
   create_table "friends", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+>>>>>>> 043bcf1c50c23db4054308d22f0ef6ecf31edbe9
     t.bigint "user_id"
     t.bigint "friend_id"
     t.datetime "created_at", precision: 6, null: false
@@ -29,9 +35,14 @@ ActiveRecord::Schema.define(version: 2021_03_25_231106) do
     t.index ["user_id"], name: "index_groups_on_user_id"
   end
 
+<<<<<<< HEAD
+  create_table "members", charset: "utf8mb4", force: :cascade do |t|
+    t.string "member_id"
+=======
   create_table "members", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "group_id"
     t.bigint "user_id"
+>>>>>>> 043bcf1c50c23db4054308d22f0ef6ecf31edbe9
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["group_id"], name: "index_members_on_group_id"

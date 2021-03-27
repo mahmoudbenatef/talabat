@@ -58,3 +58,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'devise'
 # third party facebook auth using omniauth v 1.0.0
 gem 'omniauth-facebook', '~> 1.0.0'
+
+
+#Font-Awesome
+gem "font-awesome-rails"

@@ -1,19 +1,18 @@
-<div class="">
-  <h1>Add new friend</h1>
-
-  <form class="" action="/friends" accept-charset="UTF-8" method="post" data-remote="true">
-    <div class="form-element">
-      <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
-      <label for="friend_name">Email</label>
-      <input type="text" name="friend[email]" id="friend_name">
-      <% if @err %>
-        <div>
-          <%= @err[:msg] %>
+<div class="container">
+    <h1 class="mb-3">Add new friend:</h1>
+    <form class="text-center" action="/friends" accept-charset="UTF-8" method="post" data-remote="true">
+        <input type="hidden" name="authenticity_token" value="...">
+        <div class="input-group flex-nowrap">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="addon-wrapping">@</span>
+            </div>
+            <input type="text" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="addon-wrapping" name="friend[email]" id="friend_name">
         </div>
-      <% end %>
-
-    </div>
-    <div class="submit">
-      <input type="submit" name="commit" value="Add Friend" >
-    </div></form>
+        <% if @err %>
+        <div>
+            <%= @err[:msg] %>
+        </div>
+        <% end %>
+          <input class="btn btn-primary m-3" type="submit" name="commit" value="Add Friend">
+    </form>
 </div>
