@@ -47,8 +47,8 @@ ActiveRecord::Schema.define(version: 2021_03_25_231106) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
-  create_table "user_order_joins", charset: "utf8mb4", force: :cascade do |t|
 
+  create_table "user_order_joins", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "order_id"
     t.datetime "created_at", precision: 6, null: false
