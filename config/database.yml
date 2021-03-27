@@ -14,8 +14,8 @@ default: &default
   encoding: utf8mb4
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
-  username: atef
-  password: Iwasbornin1998$
+  username: hatem
+  password: 123
   socket: /var/run/mysqld/mysqld.sock
 
 development:

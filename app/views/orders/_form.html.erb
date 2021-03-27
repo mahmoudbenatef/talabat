@@ -30,11 +30,11 @@
 
   </ul>
    <div class="field">
-    <%= form.label :friendsToAdd %>
-    <%= form.text_field :friendsToAdd, id:"friendsToAdd"+current_user.id.to_s %>
+
+    <%= form.text_field :friendsToAdd, id:"friendsToAdd"+current_user.id.to_s ,  type: :hidden%>
   </div>
    <div class="field">
-    <%= form.label :user_id %>
+   
     <%= form.number_field :user_id ,id: :order_user_id,value:current_user.id ,type: :hidden%>
   </div>
 
