@@ -47,17 +47,7 @@ consumer.subscriptions.create("NotificationChannel", {
       } else {
         errorMsg(data.body, data);
       }
-
-      else {
-        let id = "#orderFriendsErrors"+data["userId"]
-        if($(id).length) {
-          console.log("done");
-          $(id).empty()
-          $(id).append('<h1 class = "message">' + data.body + '</h1>')
-        }
-
-      }
-    }else if(data["header"] ==  "new item"){
+    } else if(data["header"] ==  "new item"){
 
       // id="order<%=@order.id%>user<%=current_user.id%>"
 
@@ -73,11 +63,10 @@ consumer.subscriptions.create("NotificationChannel", {
         }
       });
     }
-      else {
-      if($(id).length) {
-        console.log("done");
-        $(id).append('<h1 class = "message">' + data.body + '</h1>')
-
+    
+    else {
+      if ($(id).length) {
+        $(id).append('<h1 class = "message">' + data.body + "</h1>");
         // Called when there's incoming data on the websocket for this channel
       }
     }
