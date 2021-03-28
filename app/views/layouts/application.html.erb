@@ -1,41 +1,126 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <title>Talabat say hello to dev branch</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/fontawesome.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous" />
+</head>
 
-  <body>
+<body>
 
-  <div class="body">
-    <% if user_signed_in?  %>
-  <div class="header">
-  <div class="header-right">
-    <%= link_to "Home", new_friend_path %>
-    <%= link_to "Friends", friends_path %>
-    <%= link_to "Groups", new_friend_path %>
-    <%= link_to "Orders", orders_path %>
+    <div class="body">
+        <% if user_signed_in?  %>
 
-  </div>
-      <div class="header-left">
-        <%= link_to "notification", new_friend_path %>
-        <%= link_to "image", new_friend_path %>
-        <%= link_to "Name", new_friend_path %>
-        <%=  link_to_if user_signed_in?, "Logout", destroy_user_session_path,
-                        method: :delete %>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="/">
+                <img src="https://webstockreview.net/images/icon-png-images-6.png" height="50" />
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <%= link_to "Friends", friends_path, class: "nav-link" %>
+                    </li>
+                    <li class="nav-item">
+                        <%= link_to "Groups", groups_path, class: "nav-link" %>
+                    </li>
+
+                    <li class="nav-item">
+                        <%= link_to "Orders", orders_path , class: "nav-link" %>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <%= link_to "notification", notifications_path , class: "nav-link" %>
+                    </li>
+
+                    <li class="nav-item">
+
+                        <%= link_to "image", new_friend_path, class: "nav-link" %>
+
+                    </li>
+                    <li class="nav-item">
+                        <%= link_to "Name", new_friend_path, class: "nav-link" %>
+
+                    </li>
+                    <li class="nav-item">
+                        <%=  link_to_if user_signed_in?, "Logout", destroy_user_session_path,
+                        method: :delete, class: "nav-link" %>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+<!--        </div>-->
+
+        <%end %>
+      <% if user_signed_in? %>
+
+      <div class="row ">
+          <button  style="display: none" id="<%= "notification"+current_user.id.to_s+"Trigger" %>" type="button"  data-bs-toggle="modal" data-bs-target="<%= "#notification"+current_user.id.to_s+"Modal" %>" class="btn btn-success btn-sm">Add To Cart</button>
+
+
+
+
+
+        <div class="modal fade" id="<%= "notification"+current_user.id.to_s+"Modal" %>"  tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">New Notification</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                  <div id="<%= "notification"+current_user.id.to_s%>"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+<%end %>
       </div>
-    </div>
 
-    <%end %>
-    <div class="content">
-    <%= yield %>
+
+
+        <div class="content">
+            <%= yield %>
+        </div>
     </div>
-  </div>
-  </body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+    <script>
+
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId: '895883684585315',
+                xfbml: true,
+                version: 'v10.0'
+            });
+            FB.AppEvents.logPageView();
+        };
+
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {
+                return;
+            }
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+</body>
+
 </html>

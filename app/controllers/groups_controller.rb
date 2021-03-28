@@ -1,29 +1,33 @@
 class GroupsController < ApplicationController
   def index
-    @groups = Group.all
+    @groups = Group.where(user_id: current_user)
     @group = Group.new
   end
 
   def create
-    @group = Group.new(group_params)
-    respond_to do |format|
-      if @group.save
-        format.js
-        format.html { redirect_to @user, notice: 'Group was successfully created.'  }
-        format.json { render json: @user, status: :created, location: @user }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+    if params[:group][:name] == ""
+      @err={:msg => "group name is required"}
+        respond_to do |format|
+          format.js
+        end
+    else
+      @group = Group.find_by(name: params[:group][:name],user_id: current_user)
+      if @group == nil
+        @group = Group.new(group_params)
+        respond_to do |format|
+        if @group.save
+          format.js
+        else
+          format.html { render action: "new" }
+          format.json { render json: @user.errors, status: :unprocessable_entity }
+        end
       end
-    end
-  end
-
-  def show
-    @group = Group.find(params[:id])
-    respond_to do |format|
-      format.js
-      format.html { redirect_to groups_url, notice: 'Group was successfully created.'  }
-      format.json { head :no_content }
+      else
+        @err={:msg => "group name already exists"}
+        respond_to do |format|
+          format.js
+        end
+      end
     end
   end
 
@@ -32,14 +36,13 @@ class GroupsController < ApplicationController
     @group.destroy
     respond_to do |format|
       format.js
-      format.html { redirect_to groups_url, notice: 'Group was successfully created.'  }
-      format.json { head :no_content }
     end
   end
 
+  private
   def group_params
-    params.require(:group).permit(:name) 
+    params.require(:group).permit(:name).merge!(
+      user_id: current_user.id
+    )
   end
 end
-
-# format.json { render json: @group, status: :created, location: @group }

@@ -1,10 +1,19 @@
-<%= form_with(model: @group,id: "new-group", local: false) do |form| %>
-  <div>
-    <%= form.label :name %><br>
-    <%= form.text_field :name %>
-  </div>
-
-  <div>
-    <%= form.submit  %>
-  </div>
-<% end %>
+<div class="container">
+    <h1 class="mb-3">Add new Group:</h1>
+    <form class="text-center " data-remote="true" action="/groups" accept-charset="UTF-8" method="post">
+        
+         <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+        <div class="input-group flex-nowrap">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="addon-wrapping">ex: my group</span>
+            </div>
+            <input type="text" class="form-control" id="group_name" required placeholder="Group name" name="group[name]" >
+        </div>
+        <% if @err %>
+        <div>
+            <%= @err[:msg] %>
+        </div>
+        <% end %>
+          <input class="btn btn-primary m-3" type="submit" name="commit" value="Create Group">
+    </form>
+</div>

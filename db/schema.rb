@@ -10,45 +10,76 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_22_193752) do
+ActiveRecord::Schema.define(version: 2021_03_28_133708) do
 
-  create_table "friends", charset: "utf8mb4", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "friend_id", null: false
+  create_table "friends", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "friend_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["friend_id"], name: "index_friends_on_friend_id"
     t.index ["user_id"], name: "index_friends_on_user_id"
   end
 
-  create_table "groups", charset: "utf8mb4", force: :cascade do |t|
+  create_table "groups", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.text "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_groups_on_user_id"
   end
 
-  create_table "members", charset: "utf8mb4", force: :cascade do |t|
-    t.string "member_id"
+  create_table "members", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "group_id"
+    t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["group_id"], name: "index_members_on_group_id"
+    t.index ["user_id"], name: "index_members_on_user_id"
   end
 
-  create_table "orders", charset: "utf8mb4", force: :cascade do |t|
+  create_table "notifications", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.text "body"
+    t.text "notificationType"
+    t.boolean "seen"
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
+
+  create_table "order_details", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "item_name"
+    t.integer "amount"
+    t.float "price"
+    t.text "comment"
+    t.bigint "user_order_join_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_order_join_id"], name: "index_order_details_on_user_order_join_id"
+  end
+
+  create_table "orders", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "orderType"
     t.string "orderFrom"
     t.string "menuImage"
+    t.string "status"
+    t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "owner_id"
-    t.index ["owner_id"], name: "index_orders_on_owner_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
-  create_table "orders_users", id: false, charset: "utf8mb4", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "order_id", null: false
+  create_table "user_order_joins", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "order_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["order_id"], name: "index_user_order_joins_on_order_id"
+    t.index ["user_id"], name: "index_user_order_joins_on_user_id"
   end
 
-  create_table "users", charset: "utf8mb4", force: :cascade do |t|
+  create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "full_name", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -69,12 +100,22 @@ ActiveRecord::Schema.define(version: 2021_03_22_193752) do
     t.datetime "locked_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "provider"
+    t.string "uid"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
-  add_foreign_key "friends", "friends"
   add_foreign_key "friends", "users"
+  add_foreign_key "friends", "users", column: "friend_id"
+  add_foreign_key "groups", "users"
+  add_foreign_key "members", "groups"
+  add_foreign_key "members", "users"
+  add_foreign_key "notifications", "users"
+  add_foreign_key "order_details", "user_order_joins"
+  add_foreign_key "orders", "users"
+  add_foreign_key "user_order_joins", "orders"
+  add_foreign_key "user_order_joins", "users"
 end

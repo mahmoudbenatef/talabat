@@ -1,23 +1,23 @@
 <div class="title-container">
-
-  <div class="title">
-    <h1>
-      Friends
-    </h1>
+    <div class="title">
+        <h1>
+            Friends
+        </h1>
+    </div>
 </div>
-</div>
-<div class="container">
 
-<div class="friends-list"><ul>
-  <% @friends.each do |friend| %>
-    <li>
-      <%= link_to friend.friend.full_name, friend %>
-    </li>
+<%= render "form" %>
 
-  <% end %>
+<ul id="errors" class="errors">
 
 </ul>
-</div>
-</div>
+<div class="container">
+    <div class="friends-list">
+        <ul>
 
-<%#= link_to "New Friend", new_friend_path %>
+            <ul id="friends" style="list-style-type: none">
+                <%= render @friends , :locals => {:isHide => false}%>
+            </ul>
+        </ul>
+    </div>
+</div>

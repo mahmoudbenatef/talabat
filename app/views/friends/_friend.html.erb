@@ -1,0 +1,9 @@
+<li>
+    <div class="card w-50">
+        <div class="card-body">
+            <h5 class="card-title"> <%= link_to friend.friend.full_name, friend%></h5>
+            <%= link_to "Remove", friend_path(friend), method: :delete, data: { confirm: "Are you sure?" },remote:true ,  class: "delete btn btn-danger"%>
+        </div>
+    </div>
+</li>
+<br>

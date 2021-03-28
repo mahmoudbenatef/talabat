@@ -11,7 +11,6 @@ class FriendsController < ApplicationController
 
   def create
     @my_friend = User.find_by(email:friend_params[:email])
-
     @user = User.find(current_user.id)
     @userDict  =  { :user =>@user , :friend => @my_friend}
     @friend = Friend.new(@userDict)
@@ -22,19 +21,46 @@ class FriendsController < ApplicationController
       @err = { :msg => "you can't send friend request to yourself "}
     elsif Friend.find_by user_id: current_user.id, friend_id: @my_friend.id
       @err = { :msg => "you already have this friend "}
+      @testawy = ""
     end
+
+
+
     if @err == nil
-    if @friend.save
-      redirect_to @friend
-      return
+    respond_to do |format|
+      if @friend.save
+        ActionCable.server.broadcast("notification_channel", { body: @user.full_name+ " add you in friend list" , userId: @my_friend.id})
+        @notificationDict  =  { :body => @user.full_name+ " add you in friend list", :user => @my_friend , :notificationType => "new friend",:seen => false}
+
+        @notification = Notification.new(@notificationDict)
+        @notification.save
+        format.html { redirect_to @friend, notice: 'friend was successfully created.' }
+        format.js
+        format.json { render json: @err, status: :created, location: @friend }
+      else
+
+      end
+    end
     else
-      @err = { :msg => "unexpected error"}
-    end
-    end
-    render :new, :locals => {:err => @err}
+      respond_to do |format|
+      format.html { redirect_to @friend, notice: 'friend was successfully created.' }
+      format.js
+      format.json { render json: @err, status: :created, location: @friend }    end
+      @end
+
+
+    # if @err == nil
+    # if @friend.save
+    #   redirect_to @friend
+    #   return
+    # else
+    #   @err = { :msg => "unexpected error"}
+    # end
+    # end
+    # render :new, :locals => {:err => @err}
 
   end
-
+    end
   def show
     @friend = Friend.find(params[:id])
   end
@@ -45,8 +71,23 @@ class FriendsController < ApplicationController
 
   def destroy
     @friend = Friend.find(params[:id])
+    @user = User.find(current_user.id)
+    @friend_user =  User.find(@friend["friend_id"])
+
+
+    @notificationDict  =  { :body => @user.full_name+ " deleted you from friend list", :user => @friend_user , :notificationType => "deleted from friends",:seen => false}
+    @notification = Notification.new(@notificationDict)
+    @notification.save
+
     @friend.destroy
-    redirect_to friends_path
+    ActionCable.server.broadcast("notification_channel", { body: @user.full_name+ " deleted you from friend list" , userId: @friend_user.id})
+
+    # redirect_to friends_path
+    respond_to do |format|
+      format.js
+      format.html { redirect_to friends_path, notice: 'Group was successfully created.'  }
+      format.json { head :no_content }
+    end
 
   end
 end

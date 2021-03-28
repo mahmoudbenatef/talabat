@@ -1,0 +1,50 @@
+<%= render 'form' %>
+<div class="container">
+    <table class="table table-bordered table-striped text-center">
+        <thead class="table-dark">
+            <tr>
+                <td>
+                    Person
+                </td>
+                <td>
+                    Item
+                </td>
+                <td>
+                    Amount
+                </td>
+                <td>
+                    Price
+                </td>
+                <td>
+                    Comment
+                </td>
+            </tr>
+        </thead>
+        <tbody id="order<%=@order.id%>user<%=current_user.id%>">
+
+            <% @order.user_order_joins.each do |order_join|  %>
+                <% order_join.order_detail.each do |item|  %>
+                    <tr>
+                        <td>
+                            <%= order_join.user.full_name %>
+                        </td>
+                        <td> 
+                            <%= item.item_name %>
+                        </td>
+                        <td> 
+                            <%= item.amount %>
+                        </td>
+                        <td> 
+                            <%= item.price %>
+                        </td>
+                        <td> 
+                            <%= item.comment %>
+                        </td>
+                    </tr>
+                <% end  %>
+            <% end  %>
+
+
+        </tbody>
+    </table>
+</div>
