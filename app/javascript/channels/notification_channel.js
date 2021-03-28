@@ -5,14 +5,12 @@ consumer.subscriptions.create("NotificationChannel", {
     console.log("connected ya ray2");
     // Called when the subscription is ready for use on the server
   },
-
   disconnected() {
     // Called when the subscription has been terminated by the server
   },
 
   received(data) {
     console.log(data);
-    let id = "#notification" + data["userId"];
     if (data["header"] == "validate email") {
       if (data["body"] == "valid") {
         let errorid = "#orderFriendsErrors" + data["userId"];
@@ -23,7 +21,6 @@ consumer.subscriptions.create("NotificationChannel", {
         let friendsToAdd = "#friendsToAdd" + data["userId"];
         if ($(friendsToAdd).val().indexOf(data.email) == -1) {
           $(friendsToAdd).val($(friendsToAdd).val() + data.email + " ");
-
           let id = "#orderFriends" + data["userId"];
           if ($(id).length) {
             let user = {
@@ -65,9 +62,23 @@ consumer.subscriptions.create("NotificationChannel", {
     }
     
     else {
+      let id = "#notification" + data["userId"];
       if ($(id).length) {
-        $(id).append('<h1 class = "message">' + data.body + "</h1>");
-        // Called when there's incoming data on the websocket for this channel
+        $(id).append('<h1 class = "message" style="border-bottom: 1px solid black">' + data.body + "</h1>");
+        $(id+"Trigger").click()
+            .promise().done(
+            function(){
+            setTimeout( ()=> {
+                  console.log("heelllo")
+              $(id+"Trigger").click()
+
+                }
+                ,3000)
+            }
+        );
+        // $(id+"Modal").delay(3000).attr("class","modal fade")
+
+
       }
     }
 
@@ -80,6 +91,7 @@ function errorMsg(msg, data) {
   if ($(id).length) {
     $(id).empty();
     $(id).append('<h1 class = "message">' + msg + "</h1>");
+
   }
 }
 
