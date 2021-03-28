@@ -64,4 +64,7 @@ gem 'dotenv-rails'
 #Font-Awesome
 gem "font-awesome-rails"
 
+# gem install google-api-client
+gem 'google-api-client'
+
  
