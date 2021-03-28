@@ -45,7 +45,6 @@ class OrderMembersController < ApplicationController
         ActionCable.server.broadcast("notification_channel", {header: "validate email", body: "valid" , userId: current_user.id , email:email , friend: @existed_friend} )
         end
 
-
     end
   end
 end
