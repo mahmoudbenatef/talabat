@@ -1,14 +1,16 @@
-Notifications
-<ul>
-  <% @notifications.each do |notification| %>
-    <li>
-      <div class="row">
-        <div class="col-md-4">
-          <%= notification.body %>
+<div class="container">
+    <% @notifications.each do |notification| %>
+    <div class="card text-center mb-5 border border-warning rounded">
+        <div class="card-header bg-danger">
+            <%= notification.notificationType %>
         </div>
-        <div class="col-md-4"></div>
-        <%= notification.created_at %>
-      </div>
-    </li>
-  <% end %>
-</ul>
+        <div class="card-body">
+            <p class="card-text"> <%= notification.body %></p>
+        </div>
+        <div class="card-footer text-muted">
+            <%= notification.created_at.strftime('%Y-%m-%d') %>
+        </div>
+    </div>
+
+    <% end %>
+    </div>

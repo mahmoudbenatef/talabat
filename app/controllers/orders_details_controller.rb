@@ -1,10 +1,14 @@
 class OrdersDetailsController < ApplicationController
   def index
-    @orderUsersIds = UserOrderJoin.where(order_id: params[:order_id])
-   
-    if @orderUsersIds.pluck(:user_id).include? current_user.id
+    # @ownerId = Order.where(id: params[:order_id]).take.user_id
+    @orderJoins = UserOrderJoin.where(order_id: params[:order_id])
+    # .push(@ownerId)
+    # @orderUsersIds.push(@ownerId)
+    # abort @orderJoins.length().inspect
+    if @orderJoins.pluck(:user_id).include? current_user.id
       @order_id = params[:order_id]
       @order = Order.find(params[:order_id])
+      # abort @order.user_id.inspect
     else
       redirect_to orders_path
     end    
@@ -28,7 +32,7 @@ end
 
   private
   def details_params
-    @joinsId = UserOrderJoin.where(order_id: params[:order_id],user_id: current_user.id ).take.id
+    @joinsId = UserOrderJoin.where(order_id: params[:order_id],user_id: current_user.id).take.id
     params.require(:item).permit(:item_name,:amount,:price,:comment).merge!(
       user_order_join_id: @joinsId
     )

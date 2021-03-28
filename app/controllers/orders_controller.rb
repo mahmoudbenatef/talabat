@@ -13,8 +13,7 @@ class OrdersController < ApplicationController
   # GET /orders/1 or /orders/1.json
   def show
     # extension=@order.menuImage.split('.')
-    # send_file Rails.root.join('public','uploads',@order.menuImage),
-    # :type=>"application/#{extension[1]}", :x_send_file=>true
+    # send_file Rails.root.join('public','uploads',@order.menuImage), :type=>"application/#{extension[1]}", :x_send_file=>true
   end
 
   # GET /orders/new
@@ -25,7 +24,18 @@ class OrdersController < ApplicationController
   # GET /orders/1/edit
   def edit
     @order=Order.find(params[:id])
+    # abort current_user.full_name.inspect
     @order.update(status: 'finished')
+    @order.users.each do |user|
+      if user.id != @order.user_id
+        @msg = current_user.full_name + ' marked his order ' + @order.orderType + ' as finished' 
+        ActionCable.server.broadcast("notification_channel", { body: @msg, userId: user.id})
+        @notificationDict  =  { :body => @msg, :user => user , :notificationType => "order finished",:seen => false}
+
+        @notification = Notification.new(@notificationDict)
+        @notification.save
+      end
+    end
     redirect_to orders_path
   end
 
@@ -53,7 +63,6 @@ class OrdersController < ApplicationController
     @dict  =  { :user =>@currentUser , :order => @order}
       @userOrder=UserOrderJoin.new(@dict)
       @userOrder.save
-  
 
     uploaded_io = params[:order][:menuImage]
 File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
@@ -63,7 +72,17 @@ end
 
     respond_to do |format|
       if @order.save 
-        format.html { redirect_to @order, notice: "Order was successfully created." }
+        @order.users.each do |user|
+          if user.id != @order.user_id
+            @msg = current_user.full_name + ' add you to his order ' + @order.orderType 
+            ActionCable.server.broadcast("notification_channel", { body: @msg, userId: user.id})
+            @notificationDict  =  { :body => @msg, :user => user , :notificationType => "add new order",:seen => false}
+    
+            @notification = Notification.new(@notificationDict)
+            @notification.save
+          end
+        end
+        format.html { redirect_to orders_path, notice: "Order was successfully created." }
         format.json { render :show, status: :created, location: @order }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -89,6 +108,16 @@ end
 
   # DELETE /orders/1 or /orders/1.json
   def destroy
+    @order.users.each do |user|
+      if user.id != @order.user_id
+        @msg = current_user.full_name + ' deleted his order ' + @order.orderType 
+        ActionCable.server.broadcast("notification_channel", { body: @msg, userId: user.id})
+        @notificationDict  =  { :body => @msg, :user => user , :notificationType => "order deleted",:seen => false}
+
+        @notification = Notification.new(@notificationDict)
+        @notification.save
+      end
+    end
     @order.destroy
     respond_to do |format|
       format.html { redirect_to orders_url, notice: "Order was successfully destroyed." }

@@ -1,20 +1,23 @@
-<div class="">
-  <h1>Add new Member</h1>
-<!--  data-remote="true"-->
-  <form action="/groups/<%= @group.id %>/members" accept-charset="UTF-8" method="post" data-remote="true">
-    <div class="form-element">
-      <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
-<!--      <input type="hidden" name="member[group]" value="<%# %>">-->
-      <label for="friend_name">Email</label>
-      <input type="email" name="email" id="">
-      <% if @err %>
-        <div>
-          <%= @err[:msg] %>
+<div class="p-2">
+
+    <form action="/groups/<%= @group.id %>/members" accept-charset="UTF-8" method="post" data-remote="true">
+        <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+
+        <div class="form-row align-items-center">
+            <div class="col-auto">
+                <input type="email" class="form-control mb-2" id="inlineFormInput" placeholder="someone@mail.com" name="email" id="">
+                <label class="sr-only" for="inlineFormInput">Your friend email:</label>
+            </div>
+            <% if @err %>
+            <div>
+                <%= @err[:msg] %>
+            </div>
+            <% end %>
+
+            <div class="col-auto">
+                <input type="submit" name="commit" value="Add Member" class="btn btn-primary mb-2">
+            </div>
+
         </div>
-      <% end %>
-    </div>
-    <div class="submit">
-      <input type="submit" name="commit" value="Add Member" >
-    </div>
-  </form>
+    </form>
 </div>

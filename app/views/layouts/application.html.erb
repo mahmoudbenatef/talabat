@@ -28,6 +28,9 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
+                        <a href="/" class="nav-link">Home </a>
+                    </li>
+                    <li class="nav-item">
                         <%= link_to "Friends", friends_path, class: "nav-link" %>
                     </li>
                     <li class="nav-item">
@@ -45,13 +48,7 @@
                     </li>
 
                     <li class="nav-item">
-
-                        <%= link_to "image", new_friend_path, class: "nav-link" %>
-
-                    </li>
-                    <li class="nav-item">
-                        <%= link_to "Name", new_friend_path, class: "nav-link" %>
-
+                        <span class="nav-link"> <%= current_user.full_name%> </span>
                     </li>
                     <li class="nav-item">
                         <%=  link_to_if user_signed_in?, "Logout", destroy_user_session_path,
@@ -61,46 +58,42 @@
             </div>
         </nav>
 
-<!--        </div>-->
+        <!--        </div>-->
 
         <%end %>
-      <% if user_signed_in? %>
+        <% if user_signed_in? %>
 
-      <div class="row ">
-          <button  style="display: none" id="<%= "notification"+current_user.id.to_s+"Trigger" %>" type="button"  data-bs-toggle="modal" data-bs-target="<%= "#notification"+current_user.id.to_s+"Modal" %>" class="btn btn-success btn-sm">Add To Cart</button>
-
-
+        <div class="row ">
+            <button style="display: none" id="<%= "notification"+current_user.id.to_s+"Trigger" %>" type="button" data-bs-toggle="modal" data-bs-target="<%= "#notification"+current_user.id.to_s+"Modal" %>" class="btn btn-success btn-sm">Add To Cart</button>
 
 
-
-        <div class="modal fade" id="<%= "notification"+current_user.id.to_s+"Modal" %>"  tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">New Notification</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                  <div id="<%= "notification"+current_user.id.to_s%>"></div>
-              </div>
+            <div class="modal fade" id="<%= "notification"+current_user.id.to_s+"Modal" %>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">New Notification</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="<%= "notification"+current_user.id.to_s%>"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-        </div>
-<%end %>
-      </div>
+        <%end %>
+    </div>
 
 
 
-        <div class="content">
-            <%= yield %>
-        </div>
+    <div class="content">
+        <%= yield %>
+    </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
     <script>
-
         window.fbAsyncInit = function() {
             FB.init({
                 appId: '895883684585315',
@@ -121,6 +114,7 @@
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
     </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 
 </html>

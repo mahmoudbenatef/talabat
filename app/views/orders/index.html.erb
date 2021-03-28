@@ -1,8 +1,6 @@
 <div class="container">
 <p id="notice"><%= notice %></p>
 
-<h1>Orders:</h1>
-
 <table class="table table-bordered table-striped text-center">
   <thead class="table-dark">
     <tr>
@@ -22,12 +20,17 @@
       <tr>
         <td><%= order.orderType %></td>
         <td><%= order.orderFrom %></td>
-        <td><%= order.menuImage %></td>
-         <td><%= order.user.email %></td>
+    <td>
+      <%= image_tag ("/uploads/"+order.menuImage ), class: "img-responsive"%>
+
+    </td>
+        <td><%= order.user.email %></td>
         <td><%= link_to 'View', order_orders_details_path(order) %></td>
-         <%if order.user_id==current_user.id%>
-        <td><%= link_to 'Finish', edit_order_path(order) %></td>
-        <td><%= link_to 'Cancel', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <%if order.user_id==current_user.id%>
+          <% if order.status == "unfinished" %>
+            <td><%= link_to 'Finish', edit_order_path(order) %></td>
+            <td><%= link_to 'Cancel', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <%end%>
         <%end%>
         <%end%>
          <%end%>

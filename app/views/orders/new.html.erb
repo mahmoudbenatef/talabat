@@ -1,5 +1,9 @@
-<h1>New Order</h1>
+<div class="row">
+    <div class="col">
+        <%= render 'form', order: @order %>
+    </div>
+    <div id=<%= "orderFriends"+current_user.id.to_s %> class="col">
 
-<%= render 'form', order: @order %>
+    </div>
 
-<%= link_to 'Back', orders_path %>
+</div>

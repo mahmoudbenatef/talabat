@@ -1,57 +1,68 @@
-<%= form_with(model: order)  do |form| %>
-  <% if order.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(order.errors.count, "error") %> prohibited this order from being saved:</h2>
+<%= form_with(model: order, class: "orderForm container")  do |form| %>
+<% if order.errors.any? %>
+<div id="error_explanation">
+    <h2><%= pluralize(order.errors.count, "error") %> prohibited this order from being saved:</h2>
 
-      <ul>
+    <ul>
         <% order.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+        <li><%= error.full_message %></li>
         <% end %>
-      </ul>
+    </ul>
+</div>
+<% end %>
+
+<div class="form-group row">
+    <label for="orderType" class="col-sm-2 col-form-label">Order type:</label>
+
+    <%= form.select :orderType, ["Breakfast", "Lunch", "Dinner"], class: "form-control", :required => true %>
+</div>
+
+
+<div class="form-group row">
+    <label for="orderFrom" class="col-sm-2 col-form-label">From:</label>
+
+    <div class="col-sm-10">
+        <%= form.text_field :orderFrom, :required => true, :required => true, class: "form-control", id: "orderFrom"  %>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :orderType %>
-    <%= form.text_field :orderType %>
-  </div>
-
-  <div class="field">
-    <%= form.label :orderFrom %>
-    <%= form.text_field :orderFrom %>
-  </div>
-
-  <div class="field">
-    <%= form.label :menuImage %>
-    <%= form.file_field :menuImage %>
-  </div>
-  <ul id=<%= "orderFriendsErrors"+current_user.id.to_s %> > </ul>
-    <ul id=<%= "orderFriends"+current_user.id.to_s %> >
-
-  </ul>
-   <div class="field">
-
-    <%= form.text_field :friendsToAdd, id:"friendsToAdd"+current_user.id.to_s ,  type: :hidden%>
-  </div>
-   <div class="field">
-   
-    <%= form.number_field :user_id ,id: :order_user_id,value:current_user.id ,type: :hidden%>
-  </div>
+</div>
 
 
-  <div class="actions">
+
+<div class="form-group row">
+    <label for="menuImage" class="col-sm-2 col-form-label">Menu image</label>
+    <div class="col-sm-10">
+        <%= form.file_field :menuImage, accept: "image/x-png,image/gif,image/jpeg", :required => true%>
+    </div>
+</div>
+
+<%= form.text_field :friendsToAdd, id:"friendsToAdd"+current_user.id.to_s ,  type: :hidden%>
+
+<%= form.number_field :user_id ,id: :order_user_id,value:current_user.id ,type: :hidden%>
+
+<div class="actions move">
     <%= form.submit %>
-  </div>
+</div>
 
 
 <% end %>
-<div class="field">
-  <form class="text-center" action="/addfriend" accept-charset="UTF-8" method="post" data-remote="true">
-    <input name="email">
-    <input class="btn btn-primary m-3" type="submit" name="commit" value="Add Friend">
-  </form>
+
+
+
+<div class="container">
+    <form action="/addfriend" accept-charset="UTF-8" method="post" data-remote="true">
+
+        <div class="form-group row">
+            <label for="Email" class="col-sm-2 col-form-label">Enter a friend's email or group name: </label>
+            <div class="col-sm-10">
+                <input name="email" class="form-control" placeholder="group name must starts with #">
+                <input class="btn btn-primary m-3" type="submit" name="commit" value="Add Friend">
+                <span id=<%= "orderFriendsErrors"+current_user.id.to_s %>> </span>
+            </div>
+        </div>
+    </form>
 </div>
+
 <script>
-var spans = $("span")
-console.log(spans)
+    var spans = $("span")
+    console.log(spans)
 </script>

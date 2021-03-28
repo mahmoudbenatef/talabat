@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   post "/addfriend", to: "order_members#create"
-
-  devise_for :users, :controllers => { :omniauth_callbacks => "callbacks" }
+  
+  devise_for :users,  controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
   resources :orders do
     resources :orders_details
   end
