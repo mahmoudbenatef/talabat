@@ -2,10 +2,19 @@ $("#members").empty()
 
 $("#members").append("<h1><%= @group.name %></h1>");
 $("#members").append("<%= j render "form", locals: {isHide: false}   %>");
-$("#members").append("<h1>Members</h1>");
 $("#members").append("<ul id='errors' class='errors'>");
+$("#members").append("<h1>Members</h1>");
 
 
-  <% @members.each do |member| %>
-$("#members").append("<%= j render "member", id: member.id %>");
+
+
+
+
+$("#members").append('<div class="container">');
+$("#members").append('<div id="content" class="row">');
+<% @members.each do |member| %>
+$("#content").append("<%= j render "member", id: member.id %>");
 <%end %>
+
+$("#members").append('</div>');
+$("#members").append('</div>');
