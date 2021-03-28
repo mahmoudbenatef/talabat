@@ -34,12 +34,13 @@ jquery
 
 
 ### Installing
-
-
+note: change the credentials in database.yml with your credentials
+```
 git clone https://github.com/mahmoudbenatef/talabat.git
 bundel install
 rails db:migrate
 rails s
+```
 
 
 ## Project structure <a name = "project_structure"></a>
@@ -72,5 +73,5 @@ rails s
  ## contributors <a name = "contributors"></a>
  + Abdelrahman montser
  + Ahmed mamdouh
- + hatem hashem
- + mahmoud atef
+ + Hatem Hashem
+ + Mahmoud Atef
