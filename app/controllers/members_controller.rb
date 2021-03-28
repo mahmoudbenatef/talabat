@@ -27,7 +27,8 @@ class MembersController < ApplicationController
       @err={:msg => "This member is already the group admin"}
     else
       @existed_friend  = Friend.where(user_id: @user,friend_id: @my_friend_user)
-      if @existed_friend == nil
+      # if @existed_friend == nil
+      if !@existed_friend.any?
         @err={:msg => "you have no friend with this email"}
       else
         @existed_member = Member.where(:user_id => @my_friend_user,:group_id=> @group)

@@ -63,6 +63,7 @@ ActiveRecord::Schema.define(version: 2021_03_28_133708) do
     t.string "orderType"
     t.string "orderFrom"
     t.string "menuImage"
+    t.string "status"
     t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
