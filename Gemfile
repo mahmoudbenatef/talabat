@@ -59,7 +59,9 @@ gem 'devise', github: 'heartcombo/devise', branch: 'ca-omniauth-2'
 gem 'omniauth-rails_csrf_protection'
 #third party google auth using omniauth-google-oauth2
  gem 'omniauth-google-oauth2'
-
+#  add dotenv-rails gem to read .env file
+gem 'dotenv-rails'
 #Font-Awesome
 gem "font-awesome-rails"
 
+ 
