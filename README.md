@@ -27,10 +27,12 @@ A website developed in ruby on rails that makes it easier for the users to place
 ### Prerequisites
 
 
+```
 mysql
 ruby
 rails
 jquery
+```
 
 
 ### Installing
