@@ -24,6 +24,9 @@ class OrdersController < ApplicationController
 
   # GET /orders/1/edit
   def edit
+    @order=Order.find(params[:id])
+    @order.update(status: 'finished')
+    redirect_to orders_path
   end
 
   # POST /orders or /orders.json
@@ -35,8 +38,8 @@ class OrdersController < ApplicationController
     @order.user_id=order_params[:user_id]
     @order.orderFrom=order_params[:orderFrom]
     @order.menuImage=order_params[:menuImage]
+    @order.status="unfinished";
     notValidEmails=[]
-    allUsers=User.all
     @order.save
     usersToAdd=order_params[:friendsToAdd].split(" ")
     
@@ -46,6 +49,10 @@ class OrdersController < ApplicationController
       @userOrder=UserOrderJoin.new(@dict)
       @userOrder.save
     end
+    @currentUser=User.find(order_params[:user_id])
+    @dict  =  { :user =>@currentUser , :order => @order}
+      @userOrder=UserOrderJoin.new(@dict)
+      @userOrder.save
   
 
     uploaded_io = params[:order][:menuImage]
@@ -67,6 +74,7 @@ end
 
   # PATCH/PUT /orders/1 or /orders/1.json
   def update
+
     
     respond_to do |format|
       if @order.update(order_params)
