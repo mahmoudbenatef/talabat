@@ -13,8 +13,7 @@ class OrdersController < ApplicationController
   # GET /orders/1 or /orders/1.json
   def show
     # extension=@order.menuImage.split('.')
-    # send_file Rails.root.join('public','uploads',@order.menuImage),
-    # :type=>"application/#{extension[1]}", :x_send_file=>true
+    # send_file Rails.root.join('public','uploads',@order.menuImage), :type=>"application/#{extension[1]}", :x_send_file=>true
   end
 
   # GET /orders/new

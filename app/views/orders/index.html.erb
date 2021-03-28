@@ -22,8 +22,11 @@
       <tr>
         <td><%= order.orderType %></td>
         <td><%= order.orderFrom %></td>
-        <td><%= order.menuImage %></td>
-         <td><%= order.user.email %></td>
+    <td>
+      <%= image_tag ("/uploads/"+order.menuImage ), class: "img-responsive"%>
+
+    </td>
+        <td><%= order.user.email %></td>
         <td><%= link_to 'View', order_orders_details_path(order) %></td>
         <%if order.user_id==current_user.id%>
           <% if order.status == "unfinished" %>
