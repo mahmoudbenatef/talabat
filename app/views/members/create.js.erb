@@ -2,5 +2,5 @@
 $("#errors").empty().append("<%= j render 'error', err: @err %>");
 <%else %>
 $("#errors").empty();
-$("#members").append("<%= j render "member", id: @member.id %>");
+$("#content").append("<%= j render "member", id: @member.id %>");
 <%end %>

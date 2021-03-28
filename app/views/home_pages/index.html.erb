@@ -1,21 +1,32 @@
-<h1>Latest orders</h1>
-<div class="userActivities">
-
-  <% @user_orders.each do |order| %>
-    <li>
-      <%= order.orderType %>
-      <%= order.created_at %>
-    </li>
-  <% end %>
-</div>
-<h1>Friends activities</h1>real_user
-<div class="friendsActivities">
-    <% @friends.each do |friend_user| %>
-  <% friend_user.friend.ownedOrders.order('created_at desc').each do |order| %>
-      <%= friend_user.friend.full_name %>
-    <%= "created order for "+ order.orderType +  ", from" + order.orderFrom %>
-    <br>
-<%end %>
-  <% end %>
-
+<div class="container">
+    <div class="row">
+        <div class="col border mr-5 p-3">
+            <h2 class="text-center mb-5">Latest orders</h2>
+            <ul>
+                <% @user_orders.each do |order| %>
+                <li>
+                <div class="text-success">
+                    <%= order.orderType %>
+                </div>
+                    <%= order.created_at %>
+                </li>
+                <% end %>
+            </ul>
+        </div>
+        <div class="col border ml-5 p-3">
+            <h2 class="text-center mb-5">Friends activities</h2>
+            <ul>
+                <% @friends.each do |friend_user| %>
+                <% friend_user.friend.ownedOrders.order('created_at desc').each do |order| %>
+                <li>
+                <div class="text-primary">
+                    <%= friend_user.friend.full_name %>
+                    </div>
+                    <%= "created order for "+ order.orderType +  ", from" + order.orderFrom %>
+                </li>
+                <%end %>
+                <% end %>
+            </ul>
+        </div>
+    </div>
 </div>

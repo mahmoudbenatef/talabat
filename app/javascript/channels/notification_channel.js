@@ -31,7 +31,7 @@ consumer.subscriptions.create("NotificationChannel", {
               email : data.email
             }
             let clickId= `member${data.friend[0].friend_id}click`
-                let addedElement = `<div id=member${data.friend[0].friend_id}><h1 class = "message">${data.email}</h1><span userId = ${data["userId"]} email = ${data["email"]}    id=${clickId}> click me</span></div>`
+                let addedElement = `<div class = "message text-center border p-3 mt-2" id=member${data.friend[0].friend_id}><p>${data.email}</p><span class = "btn btn-danger" userId = ${data["userId"]} email = ${data["email"]} id=${clickId}> Delete</span></div>`
             $(id).append(addedElement);
             $(id).on("click",`div > ${"#"+clickId}`, (e)=>{
               let hiddenInput = $("#friendsToAdd"+$("#"+ e.target.id).attr("userid"))
@@ -79,7 +79,7 @@ function errorMsg(msg, data) {
   let id = "#orderFriendsErrors" + data["userId"];
   if ($(id).length) {
     $(id).empty();
-    $(id).append('<h1 class = "message">' + msg + "</h1>");
+    $(id).append('<span class = "message text-danger">' + msg + "</span>");
   }
 }
 
