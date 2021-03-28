@@ -21,7 +21,10 @@ class FriendsController < ApplicationController
       @err = { :msg => "you can't send friend request to yourself "}
     elsif Friend.find_by user_id: current_user.id, friend_id: @my_friend.id
       @err = { :msg => "you already have this friend "}
+      @testawy = ""
     end
+
+
 
     if @err == nil
     respond_to do |format|
