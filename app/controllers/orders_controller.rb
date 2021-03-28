@@ -46,6 +46,10 @@ class OrdersController < ApplicationController
       @userOrder=UserOrderJoin.new(@dict)
       @userOrder.save
     end
+    @currentUser=User.find(order_params[:user_id])
+    @dict  =  { :user =>@currentUser , :order => @order}
+      @userOrder=UserOrderJoin.new(@dict)
+      @userOrder.save
   
 
     uploaded_io = params[:order][:menuImage]
