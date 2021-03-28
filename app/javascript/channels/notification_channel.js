@@ -13,7 +13,6 @@ consumer.subscriptions.create("NotificationChannel", {
   received(data) {
     console.log(data);
     let id = "#notification" + data["userId"];
-    console.log(id);
     if (data["header"] == "validate email") {
       if (data["body"] == "valid") {
         let errorid = "#orderFriendsErrors" + data["userId"];
@@ -23,13 +22,24 @@ consumer.subscriptions.create("NotificationChannel", {
 
         let friendsToAdd = "#friendsToAdd" + data["userId"];
         if ($(friendsToAdd).val().indexOf(data.email) == -1) {
-          console.log("adding here");
           $(friendsToAdd).val($(friendsToAdd).val() + data.email + " ");
 
           let id = "#orderFriends" + data["userId"];
           if ($(id).length) {
-            console.log("done");
-            $(id).append(`<div id=member${data.friend[0].friend_id}><h1 class = "message">${data.email}</h1><label  onclick="deleteItem(${"member"+data.friend[0].friend_id},${friendsToAdd.replace("#","")})">click me</label></div>`);
+            let user = {
+              id :data.friend[0]["friend_id"],
+              email : data.email
+            }
+            let clickId= `member${data.friend[0].friend_id}click`
+                let addedElement = `<div id=member${data.friend[0].friend_id}><h1 class = "message">${data.email}</h1><span userId = ${data["userId"]} email = ${data["email"]}    id=${clickId}> click me</span></div>`
+            $(id).append(addedElement);
+            $(id).on("click",`div > ${"#"+clickId}`, (e)=>{
+              let hiddenInput = $("#friendsToAdd"+$("#"+ e.target.id).attr("userid"))
+              let deletedEmail = $("#"+ e.target.id).attr("email")
+              $("#"+ e.target.id).closest("div").fadeOut().remove();
+              $(hiddenInput).val($(hiddenInput).val().replace(deletedEmail ,""))
+              console.log( $(hiddenInput).val() )
+            })
           }
         } else {
           errorMsg("you cant add the same member twice", data);
@@ -39,7 +49,6 @@ consumer.subscriptions.create("NotificationChannel", {
       }
     } else {
       if ($(id).length) {
-        console.log("done");
         $(id).append('<h1 class = "message">' + data.body + "</h1>");
         // Called when there's incoming data on the websocket for this channel
       }
@@ -49,9 +58,9 @@ consumer.subscriptions.create("NotificationChannel", {
   },
 });
 function errorMsg(msg, data) {
+
   let id = "#orderFriendsErrors" + data["userId"];
   if ($(id).length) {
-    console.log("done");
     $(id).empty();
     $(id).append('<h1 class = "message">' + msg + "</h1>");
   }
