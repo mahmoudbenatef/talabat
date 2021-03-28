@@ -77,8 +77,10 @@ consumer.subscriptions.create("NotificationChannel", {
             }
         );
         // $(id+"Modal").delay(3000).attr("class","modal fade")
-
-
+        var audioElement = document.createElement('audio');
+        audioElement.setAttribute('src', 'https://cdn.staticcrate.com/stock-hd/audio/soundscrate-click-fx-tonal-18.mp3');
+        audioElement.play();
+        console.log("I'm here nw ")
       }
     }
 

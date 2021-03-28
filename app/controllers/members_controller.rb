@@ -45,6 +45,11 @@ class MembersController < ApplicationController
     if @err == nil
       respond_to do |format|
         if @member.save
+          @notificationDict  =  { :body => @user.full_name+ " add you in group "+@group.name , :user => @my_friend_user , :notificationType => "member in group",:seen => false}
+          @notification = Notification.new(@notificationDict)
+          @notification.save
+          ActionCable.server.broadcast("notification_channel", { body:  @user.full_name+ " add you in group "+@group.name , userId: @my_friend_user.id})
+
           format.js
           format.html { redirect_to group_members_url, notice: 'member was successfully added.' }
           format.json { render json: @user , status: :created, location: @member }
@@ -70,6 +75,15 @@ class MembersController < ApplicationController
 
   def destroy
     @member = Member.find(params[:id])
+    @group = Group.find(@member[:group_id])
+    @user = User.find(@group.user_id)
+    @my_friend_user = User.find(@member.user_id)
+
+    @notificationDict  =  { :body => @user.full_name+ " add you in group "+@group.name , :user => @my_friend_user , :notificationType => "member in group",:seen => false}
+    @notification = Notification.new(@notificationDict)
+    @notification.save
+    ActionCable.server.broadcast("notification_channel", { body:  @user.full_name+ " reomved you from group "+@group.name , userId: @my_friend_user.id})
+
     @member.destroy
     # redirect_to friends_path
     respond_to do |format|
