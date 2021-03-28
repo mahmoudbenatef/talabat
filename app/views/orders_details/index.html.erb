@@ -72,7 +72,7 @@
             </div>
             <div class="modal-body">
                 <% @orderJoins.each do |friend|  %>
-                 <% unless friend.id == @order.user_id %>
+                 <% if  friend.user_id != @order.user_id %>
                     <div>
                         <%= friend.user.full_name%>
                     </div>
