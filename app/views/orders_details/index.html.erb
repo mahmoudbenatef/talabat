@@ -1,4 +1,6 @@
+<% if @order.status == "unfinished" %>
 <%= render 'form' %>
+<%end%>
 <div class="container">
     <table class="table table-bordered table-striped text-center">
         <thead class="table-dark">
@@ -47,11 +49,16 @@
 
         </tbody>
     </table>
+    <% if current_user.id == @order.user_id %>
     <div>
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#invited">
-            <%= @orderJoins.length() %> friends invited ,click to view 
+            <%= @orderJoins.length() -1 %> friends invited ,click to view 
+        </button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#invited">
+            <%= @orderJoins.length() -1 %> friends invited ,click to view 
         </button>
     </div>
+    <% end %>
 </div>
 
  <div class="modal fade" id="invited" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -65,10 +72,11 @@
             </div>
             <div class="modal-body">
                 <% @orderJoins.each do |friend|  %>
+                 <% unless friend.id == @order.user_id %>
                     <div>
                         <%= friend.user.full_name%>
-                         <%= friend.order_id%>
                     </div>
+                <%end%>
                 <%end%>
             </div>
             <div class="modal-footer">

@@ -8,6 +8,7 @@ class OrdersDetailsController < ApplicationController
     if @orderJoins.pluck(:user_id).include? current_user.id
       @order_id = params[:order_id]
       @order = Order.find(params[:order_id])
+      # abort @order.user_id.inspect
     else
       redirect_to orders_path
     end    
