@@ -13,7 +13,7 @@ class User < ApplicationRecord
   has_many :user_order_joins
   has_many :order_details
   has_many :groups, through: :members
-  devise :database_authenticatable, :confirmable, 
+  devise :database_authenticatable,
          :registerable, :recoverable,
          :rememberable, :validatable,
          :omniauthable, omniauth_providers: [:google_oauth2]
@@ -29,7 +29,7 @@ class User < ApplicationRecord
               # user.last_name = auth.info.name   
               # user.image = auth.info.image 
               # skiping eamil confirmation when use the providers  
-              user.skip_confirmation!
+              # user.skip_confirmation!
               user.save!
           end
         end

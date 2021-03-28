@@ -63,7 +63,6 @@ class OrdersController < ApplicationController
     @dict  =  { :user =>@currentUser , :order => @order}
       @userOrder=UserOrderJoin.new(@dict)
       @userOrder.save
-  
 
     uploaded_io = params[:order][:menuImage]
 File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
@@ -83,7 +82,7 @@ end
             @notification.save
           end
         end
-        format.html { redirect_to @order, notice: "Order was successfully created." }
+        format.html { redirect_to orders_path, notice: "Order was successfully created." }
         format.json { render :show, status: :created, location: @order }
       else
         format.html { render :new, status: :unprocessable_entity }
