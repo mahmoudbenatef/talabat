@@ -14,16 +14,26 @@
 
   <tbody>
     <% @orders.each do |order| %>
-      <%if order.user_id==current_user.id%>
+    
+      <% order.users.each do |userInOrder|%>
+       <%if userInOrder.id==current_user.id%>
       <tr>
         <td><%= order.orderType %></td>
         <td><%= order.orderFrom %></td>
-        <td><%= order.menuImage %></td>
-         <td><%= order.user.email %></td>
-        <td><%= link_to 'Show', order_orders_details_path(order) %></td>
-        <td><%= link_to 'Edit', edit_order_path(order) %></td>
-        <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td>
+      <%= image_tag ("/uploads/"+order.menuImage ), class: "img-responsive"%>
+
+    </td>
+        <td><%= order.user.email %></td>
+        <td><%= link_to 'View', order_orders_details_path(order) %></td>
+        <%if order.user_id==current_user.id%>
+          <% if order.status == "unfinished" %>
+            <td><%= link_to 'Finish', edit_order_path(order) %></td>
+            <td><%= link_to 'Cancel', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <%end%>
         <%end%>
+        <%end%>
+         <%end%>
       </tr>
     <% end %>
   </tbody>

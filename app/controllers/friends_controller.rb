@@ -29,7 +29,11 @@ class FriendsController < ApplicationController
     if @err == nil
     respond_to do |format|
       if @friend.save
-        ActionCable.server.broadcast("notification_channel", { body: @user.full_name+ "add you in friend list" , userId: @my_friend.id})
+        ActionCable.server.broadcast("notification_channel", { body: @user.full_name+ " add you in friend list" , userId: @my_friend.id})
+        @notificationDict  =  { :body => @user.full_name+ " add you in friend list", :user => @my_friend , :notificationType => "new friend",:seen => false}
+
+        @notification = Notification.new(@notificationDict)
+        @notification.save
         format.html { redirect_to @friend, notice: 'friend was successfully created.' }
         format.js
         format.json { render json: @err, status: :created, location: @friend }
@@ -67,7 +71,17 @@ class FriendsController < ApplicationController
 
   def destroy
     @friend = Friend.find(params[:id])
+    @user = User.find(current_user.id)
+    @friend_user =  User.find(@friend["friend_id"])
+
+
+    @notificationDict  =  { :body => @user.full_name+ " deleted you from friend list", :user => @friend_user , :notificationType => "deleted from friends",:seen => false}
+    @notification = Notification.new(@notificationDict)
+    @notification.save
+
     @friend.destroy
+    ActionCable.server.broadcast("notification_channel", { body: @user.full_name+ " deleted you from friend list" , userId: @friend_user.id})
+
     # redirect_to friends_path
     respond_to do |format|
       format.js

@@ -16,6 +16,7 @@ default: &default
 
   username: ahmed
   password: 1234
+
   socket: /var/run/mysqld/mysqld.sock
 
 development:
