@@ -41,22 +41,7 @@ class OrdersController < ApplicationController
     usersToAdd=order_params[:friendsToAdd].split(" ")
     
     usersToAdd.each do |user|
-      #if user.index[0]=="#"
-        #@usersOfGroup=Group.where(name: user.slice(1,user.length)).take.users
-        
-     # end
-      if !user.match(/^[a-z]+[0-9\._a-z]+@[a-z]+\.com$/)
-        notValidEmails.push(user)
-        abort @user.inspect
-      
-      elsif !User.where(email: user).any?
-        notValidEmails.push(user)
-        abort @user.inspect
-      elsif User.where(email: user).take.id ==current_user.id
-        abort @user.inspect
-        
-      end
-      @currentFriend=User.find_by(email:user)
+            @currentFriend=User.find_by(email:user)
       @dict  =  { :user =>@currentFriend , :order => @order}
       @userOrder=UserOrderJoin.new(@dict)
       @userOrder.save
