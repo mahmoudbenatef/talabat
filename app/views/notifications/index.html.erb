@@ -1,0 +1,14 @@
+Notifications
+<ul>
+  <% @notifications.each do |notification| %>
+    <li>
+      <div class="row">
+        <div class="col-md-4">
+          <%= notification.body %>
+        </div>
+        <div class="col-md-4"></div>
+        <%= notification.created_at %>
+      </div>
+    </li>
+  <% end %>
+</ul>

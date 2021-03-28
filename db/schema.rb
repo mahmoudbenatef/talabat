@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_27_200024) do
+ActiveRecord::Schema.define(version: 2021_03_28_133708) do
 
-  create_table "friends", charset: "utf8mb4", force: :cascade do |t|
+  create_table "friends", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "friend_id"
     t.datetime "created_at", precision: 6, null: false
@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 2021_03_27_200024) do
     t.index ["user_id"], name: "index_friends_on_user_id"
   end
 
-  create_table "groups", charset: "utf8mb4", force: :cascade do |t|
+  create_table "groups", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.text "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 2021_03_27_200024) do
     t.index ["user_id"], name: "index_groups_on_user_id"
   end
 
-  create_table "members", charset: "utf8mb4", force: :cascade do |t|
+  create_table "members", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "group_id"
     t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
@@ -38,7 +38,17 @@ ActiveRecord::Schema.define(version: 2021_03_27_200024) do
     t.index ["user_id"], name: "index_members_on_user_id"
   end
 
-  create_table "order_details", charset: "utf8mb4", force: :cascade do |t|
+  create_table "notifications", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.text "body"
+    t.text "notificationType"
+    t.boolean "seen"
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
+
+  create_table "order_details", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "item_name"
     t.integer "amount"
     t.float "price"
@@ -49,7 +59,7 @@ ActiveRecord::Schema.define(version: 2021_03_27_200024) do
     t.index ["user_order_join_id"], name: "index_order_details_on_user_order_join_id"
   end
 
-  create_table "orders", charset: "utf8mb4", force: :cascade do |t|
+  create_table "orders", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "orderType"
     t.string "orderFrom"
     t.string "menuImage"
@@ -59,7 +69,7 @@ ActiveRecord::Schema.define(version: 2021_03_27_200024) do
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
-  create_table "user_order_joins", charset: "utf8mb4", force: :cascade do |t|
+  create_table "user_order_joins", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "order_id"
     t.datetime "created_at", precision: 6, null: false
@@ -68,7 +78,7 @@ ActiveRecord::Schema.define(version: 2021_03_27_200024) do
     t.index ["user_id"], name: "index_user_order_joins_on_user_id"
   end
 
-  create_table "users", charset: "utf8mb4", force: :cascade do |t|
+  create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "full_name", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -102,6 +112,7 @@ ActiveRecord::Schema.define(version: 2021_03_27_200024) do
   add_foreign_key "groups", "users"
   add_foreign_key "members", "groups"
   add_foreign_key "members", "users"
+  add_foreign_key "notifications", "users"
   add_foreign_key "order_details", "user_order_joins"
   add_foreign_key "orders", "users"
   add_foreign_key "user_order_joins", "orders"

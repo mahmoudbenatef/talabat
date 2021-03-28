@@ -2,6 +2,8 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   has_many :friends
+  has_many :notifications
+
 
   has_many :ownedOrders, :class_name => "Order", :foreign_key => 'user_id'
   has_many :user_order_joins

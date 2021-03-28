@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   resources :orders do
     resources :orders_details
   end
+  get "/notifications", to: "notifications#index"
+
   resources :groups do
     resources :members
   end
