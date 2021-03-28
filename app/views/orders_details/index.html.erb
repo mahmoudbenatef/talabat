@@ -20,11 +20,12 @@
                 </td>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="order<%=@order.id%>user<%=current_user.id%>">
+
             <% @order.user_order_joins.each do |order_join|  %>
                 <% order_join.order_detail.each do |item|  %>
                     <tr>
-                        <td> 
+                        <td>
                             <%= order_join.user.full_name %>
                         </td>
                         <td> 
@@ -42,6 +43,8 @@
                     </tr>
                 <% end  %>
             <% end  %>
+
+
         </tbody>
     </table>
 </div>

@@ -42,6 +42,21 @@ consumer.subscriptions.create("NotificationChannel", {
         }
 
       }
+    }else if(data["header"] ==  "new item"){
+
+      // id="order<%=@order.id%>user<%=current_user.id%>"
+
+
+      console.log("done");
+      console.log(data["users"]);
+      let ids =  data["users"].map(user => "#order"+data["order_id"]+"user"+user);
+
+      ids.map(user => {
+        if($(user).length) {
+          $(user).append('<tr><td>' + data["orderItem"].name + '</td><td>' + data["orderItem"].item_name + '</td><td>' + data["orderItem"].amount + '</td><td>' + data["orderItem"].price + '</td><td>' + data["orderItem"].comment + '</td></tr>')
+          // Called when there's incoming data on the websocket for this channel
+        }
+      });
     }
       else {
       if($(id).length) {

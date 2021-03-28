@@ -1,6 +1,5 @@
 <div class="container">
-<%# data-remote="true" @order_id  %>
-    <form class="text-center form-inline"  action="/orders/<%= @order_id  %>/orders_details" accept-charset="UTF-8" method="post">
+    <form class="text-center form-inline" data-remote="true" action="/orders/<%= @order_id  %>/orders_details" accept-charset="UTF-8" method="post">
         <%# <input type="hidden" name="authenticity_token" value="...">
          %>
          <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
