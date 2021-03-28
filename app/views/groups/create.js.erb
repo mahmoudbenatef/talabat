@@ -2,4 +2,5 @@
     $("#group_errors").empty().append("<%= j render 'errors'  %>");
 <% else %>
     $("#groups").append("<%= j render @group %>");
+    $("#group_name").val("")
 <% end %>
